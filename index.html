@@ -1,0 +1,2247 @@
+
+                        <!DOCTYPE html>
+                        <html lang="en">
+                        <head>
+                            <meta charset="UTF-8">
+                            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+							<style>
+								body {
+									background-color: white; /* Ensure the iframe has a white background */
+								}
+
+								
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        header {
+            text-align: center;
+            color: white;
+            margin-bottom: 30px;
+        }
+
+        header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        header p {
+            font-size: 1.1em;
+            opacity: 0.9;
+        }
+
+        .tabs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+
+        .tab-btn {
+            padding: 12px 24px;
+            background: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1em;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        .tab-btn.active {
+            background: #667eea;
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(0,0,0,0.2);
+        }
+
+        .tab-btn:hover {
+            transform: translateY(-2px);
+        }
+
+        .content {
+            background: white;
+            border-radius: 12px;
+            padding: 30px;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+            display: none;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .content.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .concept-section {
+            margin-bottom: 30px;
+        }
+
+        .concept-section h2 {
+            color: #667eea;
+            margin-bottom: 15px;
+            font-size: 1.8em;
+            border-bottom: 3px solid #667eea;
+            padding-bottom: 10px;
+        }
+
+        .concept-section p {
+            line-height: 1.8;
+            color: #333;
+            margin-bottom: 15px;
+        }
+
+        .cipher-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            background: #f8f9fa;
+        }
+
+        .cipher-table td {
+            border: 2px solid #ddd;
+            padding: 10px;
+            text-align: center;
+            font-weight: bold;
+        }
+
+        .cipher-table tr:nth-child(odd) td {
+            background: #f8f9fa;
+        }
+
+        .cipher-table tr:nth-child(even) td {
+            background: #e9ecef;
+        }
+
+        .example-box {
+            background: #e7f3ff;
+            border-left: 4px solid #667eea;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 4px;
+        }
+
+        .example-box strong {
+            color: #667eea;
+        }
+
+        .practice-section {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .input-group {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        label {
+            font-weight: bold;
+            color: #333;
+            font-size: 1.05em;
+        }
+
+        input[type="text"],
+        input[type="number"],
+        textarea {
+            padding: 12px;
+            border: 2px solid #ddd;
+            border-radius: 6px;
+            font-size: 1em;
+            transition: border-color 0.3s ease;
+            font-family: 'Courier New', monospace;
+        }
+
+        input[type="text"]:focus,
+        input[type="number"]:focus,
+        textarea:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+
+        textarea {
+            min-height: 100px;
+            resize: vertical;
+        }
+
+        .button-group {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        button {
+            padding: 12px 24px;
+            background: #667eea;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-size: 1em;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        button:hover {
+            background: #764ba2;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+        }
+
+        button:active {
+            transform: translateY(0);
+        }
+
+        button:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .result-box {
+            background: #f0f7ff;
+            border: 2px solid #667eea;
+            padding: 15px;
+            border-radius: 6px;
+            margin-top: 15px;
+            display: none;
+        }
+
+        .result-box.show {
+            display: block;
+            animation: slideDown 0.3s ease;
+        }
+
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                max-height: 0;
+            }
+            to {
+                opacity: 1;
+                max-height: 500px;
+            }
+        }
+
+        .result-title {
+            font-weight: bold;
+            color: #667eea;
+            margin-bottom: 10px;
+        }
+
+        .game-section {
+            text-align: center;
+        }
+
+        .game-info {
+            background: #fff3cd;
+            border-left: 4px solid #ffc107;
+            padding: 15px;
+            margin-bottom: 20px;
+            border-radius: 4px;
+            text-align: left;
+        }
+
+        .game-controls {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+
+        .difficulty-btn {
+            padding: 10px 20px;
+            background: #e9ecef;
+            color: #333;
+            border: 2px solid #ddd;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .difficulty-btn.active {
+            background: #667eea;
+            color: white;
+            border-color: #667eea;
+        }
+
+        .game-display {
+            background: #f8f9fa;
+            padding: 30px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            border: 2px solid #ddd;
+        }
+
+        .encrypted-text {
+            font-size: 1.5em;
+            font-weight: bold;
+            color: #667eea;
+            word-break: break-all;
+            margin-bottom: 15px;
+            font-family: 'Courier New', monospace;
+            letter-spacing: 3px;
+        }
+
+        .timer {
+            font-size: 2em;
+            color: #dc3545;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+
+        .timer.warning {
+            animation: blink 0.5s infinite;
+        }
+
+        @keyframes blink {
+            0%, 50% { opacity: 1; }
+            51%, 100% { opacity: 0.5; }
+        }
+
+        .guess-input {
+            font-size: 1.2em;
+            padding: 15px;
+            margin-bottom: 15px;
+        }
+
+        .game-result {
+            font-size: 1.2em;
+            font-weight: bold;
+            padding: 15px;
+            border-radius: 6px;
+            margin-bottom: 15px;
+            display: none;
+        }
+
+        .game-result.show {
+            display: block;
+        }
+
+        .game-result.correct {
+            background: #d4edda;
+            color: #155724;
+            border: 2px solid #28a745;
+        }
+
+        .game-result.incorrect {
+            background: #f8d7da;
+            color: #721c24;
+            border: 2px solid #dc3545;
+        }
+
+        .stats {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .stat-box {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 6px;
+            border: 2px solid #ddd;
+        }
+
+        .stat-label {
+            color: #666;
+            font-size: 0.9em;
+        }
+
+        .stat-value {
+            font-size: 1.8em;
+            font-weight: bold;
+            color: #667eea;
+        }
+
+        .shift-slider {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin: 15px 0;
+        }
+
+        .shift-slider input[type="range"] {
+            flex: 1;
+            height: 8px;
+            cursor: pointer;
+        }
+
+        .shift-value {
+            font-size: 1.3em;
+            font-weight: bold;
+            color: #667eea;
+            min-width: 60px;
+            text-align: center;
+        }
+
+        /* 힌트 시스템 스타일 */
+        .hint-section {
+            background: #fff8e1;
+            border: 2px solid #ffc107;
+            border-radius: 8px;
+            padding: 15px;
+            margin-bottom: 20px;
+        }
+
+        .hint-title {
+            color: #f57f17;
+            font-weight: bold;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .hint-content {
+            color: #333;
+            background: white;
+            padding: 12px;
+            border-radius: 6px;
+            margin-top: 10px;
+        }
+
+        .hint-box {
+            background: #e3f2fd;
+            border-left: 4px solid #2196f3;
+            padding: 10px;
+            margin-bottom: 8px;
+            border-radius: 4px;
+            font-size: 0.95em;
+        }
+
+        .hint-button {
+            background: #ffc107;
+            color: #333;
+            padding: 8px 16px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            margin-right: 8px;
+            margin-top: 10px;
+        }
+
+        .hint-button:hover {
+            background: #ffb300;
+            transform: translateY(-2px);
+        }
+
+        .hint-button:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .hint-used {
+            display: inline-block;
+            background: #e0e0e0;
+            color: #666;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 0.85em;
+            margin-left: 10px;
+        }
+
+        .guide-box {
+            background: #e8f5e9;
+            border: 2px solid #4caf50;
+            border-radius: 8px;
+            padding: 15px;
+            margin-bottom: 20px;
+        }
+
+        .guide-title {
+            color: #2e7d32;
+            font-weight: bold;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .guide-content {
+            color: #333;
+            font-size: 0.95em;
+            line-height: 1.6;
+        }
+
+        .guide-step {
+            margin-bottom: 10px;
+            padding-left: 20px;
+        }
+
+        .guide-step::before {
+            content: "→";
+            margin-left: -15px;
+            margin-right: 10px;
+            color: #4caf50;
+            font-weight: bold;
+        }
+
+        .shift-reference {
+            background: #f5f5f5;
+            padding: 12px;
+            border-radius: 6px;
+            margin-top: 10px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9em;
+            text-align: center;
+        }
+
+        .hint-counter {
+            display: inline-block;
+            background: #667eea;
+            color: white;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 0.85em;
+            margin-left: 10px;
+        }
+
+        /* 알파벳 참고 표 스타일 */
+        .alphabet-reference {
+            background: #f0f7ff;
+            border: 2px solid #667eea;
+            border-radius: 8px;
+            padding: 15px;
+            margin-bottom: 20px;
+        }
+
+        .alphabet-reference h3 {
+            color: #667eea;
+            font-size: 1.1em;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .alphabet-row {
+            display: flex;
+            gap: 4px;
+            margin-bottom: 8px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .alphabet-letter {
+            width: 28px;
+            height: 28px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: white;
+            border: 2px solid #667eea;
+            border-radius: 4px;
+            font-weight: bold;
+            color: #667eea;
+            font-size: 0.9em;
+            font-family: 'Courier New', monospace;
+        }
+
+        .alphabet-letter.highlighted {
+            background: #667eea;
+            color: white;
+        }
+
+        .alphabet-label {
+            text-align: center;
+            font-size: 0.75em;
+            color: #666;
+            margin-top: 2px;
+            min-width: 28px;
+        }
+
+        .alphabet-wrapper {
+            display: flex;
+            justify-content: center;
+            gap: 0;
+            flex-wrap: wrap;
+        }
+
+        .alphabet-item {
+            text-align: center;
+            margin-right: 2px;
+        }
+
+        .toggle-alphabet-btn {
+            background: #667eea;
+            color: white;
+            padding: 8px 16px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: bold;
+            margin-bottom: 10px;
+            width: 100%;
+        }
+
+        .toggle-alphabet-btn:hover {
+            background: #764ba2;
+        }
+
+        .toggle-alphabet-btn.expanded::after {
+            content: " ▲";
+        }
+
+        .toggle-alphabet-btn:not(.expanded)::after {
+            content: " ▼";
+        }
+
+        .alphabet-content {
+            display: none;
+        }
+
+        .alphabet-content.expanded {
+            display: block;
+        }
+
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 1.8em;
+            }
+
+            .content {
+                padding: 20px;
+            }
+
+            .stats {
+                grid-template-columns: 1fr;
+            }
+
+            .tabs {
+                flex-direction: column;
+            }
+
+            .tab-btn {
+                width: 100%;
+            }
+
+            .encrypted-text {
+                font-size: 1.2em;
+            }
+
+            .alphabet-letter {
+                width: 24px;
+                height: 24px;
+                font-size: 0.8em;
+            }
+
+            .alphabet-item {
+                margin-right: 1px;
+            }
+        }
+    
+
+							</style>
+                        </head>
+                        <body>
+                            <!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>카이사르 암호 - 학습 & 게임</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        header {
+            text-align: center;
+            color: white;
+            margin-bottom: 30px;
+        }
+
+        header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        header p {
+            font-size: 1.1em;
+            opacity: 0.9;
+        }
+
+        .tabs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+
+        .tab-btn {
+            padding: 12px 24px;
+            background: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1em;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        .tab-btn.active {
+            background: #667eea;
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(0,0,0,0.2);
+        }
+
+        .tab-btn:hover {
+            transform: translateY(-2px);
+        }
+
+        .content {
+            background: white;
+            border-radius: 12px;
+            padding: 30px;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+            display: none;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .content.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .concept-section {
+            margin-bottom: 30px;
+        }
+
+        .concept-section h2 {
+            color: #667eea;
+            margin-bottom: 15px;
+            font-size: 1.8em;
+            border-bottom: 3px solid #667eea;
+            padding-bottom: 10px;
+        }
+
+        .concept-section p {
+            line-height: 1.8;
+            color: #333;
+            margin-bottom: 15px;
+        }
+
+        .cipher-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            background: #f8f9fa;
+        }
+
+        .cipher-table td {
+            border: 2px solid #ddd;
+            padding: 10px;
+            text-align: center;
+            font-weight: bold;
+        }
+
+        .cipher-table tr:nth-child(odd) td {
+            background: #f8f9fa;
+        }
+
+        .cipher-table tr:nth-child(even) td {
+            background: #e9ecef;
+        }
+
+        .example-box {
+            background: #e7f3ff;
+            border-left: 4px solid #667eea;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 4px;
+        }
+
+        .example-box strong {
+            color: #667eea;
+        }
+
+        .practice-section {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .input-group {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        label {
+            font-weight: bold;
+            color: #333;
+            font-size: 1.05em;
+        }
+
+        input[type="text"],
+        input[type="number"],
+        textarea {
+            padding: 12px;
+            border: 2px solid #ddd;
+            border-radius: 6px;
+            font-size: 1em;
+            transition: border-color 0.3s ease;
+            font-family: 'Courier New', monospace;
+        }
+
+        input[type="text"]:focus,
+        input[type="number"]:focus,
+        textarea:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+
+        textarea {
+            min-height: 100px;
+            resize: vertical;
+        }
+
+        .button-group {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        button {
+            padding: 12px 24px;
+            background: #667eea;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-size: 1em;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        button:hover {
+            background: #764ba2;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+        }
+
+        button:active {
+            transform: translateY(0);
+        }
+
+        button:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .result-box {
+            background: #f0f7ff;
+            border: 2px solid #667eea;
+            padding: 15px;
+            border-radius: 6px;
+            margin-top: 15px;
+            display: none;
+        }
+
+        .result-box.show {
+            display: block;
+            animation: slideDown 0.3s ease;
+        }
+
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                max-height: 0;
+            }
+            to {
+                opacity: 1;
+                max-height: 500px;
+            }
+        }
+
+        .result-title {
+            font-weight: bold;
+            color: #667eea;
+            margin-bottom: 10px;
+        }
+
+        .game-section {
+            text-align: center;
+        }
+
+        .game-info {
+            background: #fff3cd;
+            border-left: 4px solid #ffc107;
+            padding: 15px;
+            margin-bottom: 20px;
+            border-radius: 4px;
+            text-align: left;
+        }
+
+        .game-controls {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+
+        .difficulty-btn {
+            padding: 10px 20px;
+            background: #e9ecef;
+            color: #333;
+            border: 2px solid #ddd;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .difficulty-btn.active {
+            background: #667eea;
+            color: white;
+            border-color: #667eea;
+        }
+
+        .game-display {
+            background: #f8f9fa;
+            padding: 30px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            border: 2px solid #ddd;
+        }
+
+        .encrypted-text {
+            font-size: 1.5em;
+            font-weight: bold;
+            color: #667eea;
+            word-break: break-all;
+            margin-bottom: 15px;
+            font-family: 'Courier New', monospace;
+            letter-spacing: 3px;
+        }
+
+        .timer {
+            font-size: 2em;
+            color: #dc3545;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+
+        .timer.warning {
+            animation: blink 0.5s infinite;
+        }
+
+        @keyframes blink {
+            0%, 50% { opacity: 1; }
+            51%, 100% { opacity: 0.5; }
+        }
+
+        .guess-input {
+            font-size: 1.2em;
+            padding: 15px;
+            margin-bottom: 15px;
+        }
+
+        .game-result {
+            font-size: 1.2em;
+            font-weight: bold;
+            padding: 15px;
+            border-radius: 6px;
+            margin-bottom: 15px;
+            display: none;
+        }
+
+        .game-result.show {
+            display: block;
+        }
+
+        .game-result.correct {
+            background: #d4edda;
+            color: #155724;
+            border: 2px solid #28a745;
+        }
+
+        .game-result.incorrect {
+            background: #f8d7da;
+            color: #721c24;
+            border: 2px solid #dc3545;
+        }
+
+        .stats {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .stat-box {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 6px;
+            border: 2px solid #ddd;
+        }
+
+        .stat-label {
+            color: #666;
+            font-size: 0.9em;
+        }
+
+        .stat-value {
+            font-size: 1.8em;
+            font-weight: bold;
+            color: #667eea;
+        }
+
+        .shift-slider {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin: 15px 0;
+        }
+
+        .shift-slider input[type="range"] {
+            flex: 1;
+            height: 8px;
+            cursor: pointer;
+        }
+
+        .shift-value {
+            font-size: 1.3em;
+            font-weight: bold;
+            color: #667eea;
+            min-width: 60px;
+            text-align: center;
+        }
+
+        /* 힌트 시스템 스타일 */
+        .hint-section {
+            background: #fff8e1;
+            border: 2px solid #ffc107;
+            border-radius: 8px;
+            padding: 15px;
+            margin-bottom: 20px;
+        }
+
+        .hint-title {
+            color: #f57f17;
+            font-weight: bold;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .hint-content {
+            color: #333;
+            background: white;
+            padding: 12px;
+            border-radius: 6px;
+            margin-top: 10px;
+        }
+
+        .hint-box {
+            background: #e3f2fd;
+            border-left: 4px solid #2196f3;
+            padding: 10px;
+            margin-bottom: 8px;
+            border-radius: 4px;
+            font-size: 0.95em;
+        }
+
+        .hint-button {
+            background: #ffc107;
+            color: #333;
+            padding: 8px 16px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            margin-right: 8px;
+            margin-top: 10px;
+        }
+
+        .hint-button:hover {
+            background: #ffb300;
+            transform: translateY(-2px);
+        }
+
+        .hint-button:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .hint-used {
+            display: inline-block;
+            background: #e0e0e0;
+            color: #666;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 0.85em;
+            margin-left: 10px;
+        }
+
+        .guide-box {
+            background: #e8f5e9;
+            border: 2px solid #4caf50;
+            border-radius: 8px;
+            padding: 15px;
+            margin-bottom: 20px;
+        }
+
+        .guide-title {
+            color: #2e7d32;
+            font-weight: bold;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .guide-content {
+            color: #333;
+            font-size: 0.95em;
+            line-height: 1.6;
+        }
+
+        .guide-step {
+            margin-bottom: 10px;
+            padding-left: 20px;
+        }
+
+        .guide-step::before {
+            content: "→";
+            margin-left: -15px;
+            margin-right: 10px;
+            color: #4caf50;
+            font-weight: bold;
+        }
+
+        .shift-reference {
+            background: #f5f5f5;
+            padding: 12px;
+            border-radius: 6px;
+            margin-top: 10px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9em;
+            text-align: center;
+        }
+
+        .hint-counter {
+            display: inline-block;
+            background: #667eea;
+            color: white;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 0.85em;
+            margin-left: 10px;
+        }
+
+        /* 알파벳 참고 표 스타일 */
+        .alphabet-reference {
+            background: #f0f7ff;
+            border: 2px solid #667eea;
+            border-radius: 8px;
+            padding: 15px;
+            margin-bottom: 20px;
+        }
+
+        .alphabet-reference h3 {
+            color: #667eea;
+            font-size: 1.1em;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .alphabet-row {
+            display: flex;
+            gap: 4px;
+            margin-bottom: 8px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .alphabet-letter {
+            width: 28px;
+            height: 28px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: white;
+            border: 2px solid #667eea;
+            border-radius: 4px;
+            font-weight: bold;
+            color: #667eea;
+            font-size: 0.9em;
+            font-family: 'Courier New', monospace;
+        }
+
+        .alphabet-letter.highlighted {
+            background: #667eea;
+            color: white;
+        }
+
+        .alphabet-label {
+            text-align: center;
+            font-size: 0.75em;
+            color: #666;
+            margin-top: 2px;
+            min-width: 28px;
+        }
+
+        .alphabet-wrapper {
+            display: flex;
+            justify-content: center;
+            gap: 0;
+            flex-wrap: wrap;
+        }
+
+        .alphabet-item {
+            text-align: center;
+            margin-right: 2px;
+        }
+
+        .toggle-alphabet-btn {
+            background: #667eea;
+            color: white;
+            padding: 8px 16px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: bold;
+            margin-bottom: 10px;
+            width: 100%;
+        }
+
+        .toggle-alphabet-btn:hover {
+            background: #764ba2;
+        }
+
+        .toggle-alphabet-btn.expanded::after {
+            content: " ▲";
+        }
+
+        .toggle-alphabet-btn:not(.expanded)::after {
+            content: " ▼";
+        }
+
+        .alphabet-content {
+            display: none;
+        }
+
+        .alphabet-content.expanded {
+            display: block;
+        }
+
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 1.8em;
+            }
+
+            .content {
+                padding: 20px;
+            }
+
+            .stats {
+                grid-template-columns: 1fr;
+            }
+
+            .tabs {
+                flex-direction: column;
+            }
+
+            .tab-btn {
+                width: 100%;
+            }
+
+            .encrypted-text {
+                font-size: 1.2em;
+            }
+
+            .alphabet-letter {
+                width: 24px;
+                height: 24px;
+                font-size: 0.8em;
+            }
+
+            .alphabet-item {
+                margin-right: 1px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🔐 카이사르 암호</h1>
+            <p>고대 로마의 전략가 율리우스 카이사르가 사용한 암호화 기법을 배워보세요!</p>
+        </header>
+
+        <div class="tabs">
+            <button class="tab-btn active" onclick="switchTab('concept')">📚 개념</button>
+            <button class="tab-btn" onclick="switchTab('practice')">✏️ 실습</button>
+            <button class="tab-btn" onclick="switchTab('game')">🎮 게임</button>
+        </div>
+
+        <!-- 개념 탭 -->
+        <div id="concept" class="content active">
+            <div class="concept-section">
+                <h2>카이사르 암호란?</h2>
+                <p>카이사르 암호(Caesar Cipher)는 가장 간단한 암호 중 하나로, 알파벳을 일정한 칸 수만큼 밀어서 암호화합니다. 예를 들어, 시프트 값이 3이면 'A'는 'D'로, 'B'는 'E'로 변환됩니다.</p>
+            </div>
+
+            <div class="concept-section">
+                <h2>암호화 예시</h2>
+                <div class="example-box">
+                    <strong>원문:</strong> HELLO<br>
+                    <strong>시프트 값:</strong> 3<br>
+                    <strong>암호문:</strong> KHOOR
+                </div>
+                <p>
+                    H → K (3칸 앞으로)<br>
+                    E → H (3칸 앞으로)<br>
+                    L → O (3칸 앞으로)<br>
+                    L → O (3칸 앞으로)<br>
+                    O → R (3칸 앞으로)
+                </p>
+            </div>
+
+            <div class="concept-section">
+                <h2>알파벳 이동 표</h2>
+                <table class="cipher-table">
+                    <tr>
+                        <td>원문</td>
+                        <td>A</td><td>B</td><td>C</td><td>D</td><td>E</td><td>F</td><td>G</td><td>H</td><td>I</td><td>J</td><td>K</td><td>L</td><td>M</td>
+                    </tr>
+                    <tr>
+                        <td>시프트 3</td>
+                        <td>D</td><td>E</td><td>F</td><td>G</td><td>H</td><td>I</td><td>J</td><td>K</td><td>L</td><td>M</td><td>N</td><td>O</td><td>P</td>
+                    </tr>
+                    <tr>
+                        <td>원문</td>
+                        <td>N</td><td>O</td><td>P</td><td>Q</td><td>R</td><td>S</td><td>T</td><td>U</td><td>V</td><td>W</td><td>X</td><td>Y</td><td>Z</td>
+                    </tr>
+                    <tr>
+                        <td>시프트 3</td>
+                        <td>Q</td><td>R</td><td>S</td><td>T</td><td>U</td><td>V</td><td>W</td><td>X</td><td>Y</td><td>Z</td><td>A</td><td>B</td><td>C</td>
+                    </tr>
+                </table>
+            </div>
+
+            <div class="concept-section">
+                <h2>복호화</h2>
+                <p>암호화된 문자를 원래대로 되돌리려면 반대 방향으로 이동하면 됩니다. 예를 들어, 시프트 값이 3이었다면 3칸 뒤로 가면 원문을 얻을 수 있습니다.</p>
+                <div class="example-box">
+                    <strong>암호문:</strong> KHOOR<br>
+                    <strong>시프트 값:</strong> 3<br>
+                    <strong>복호화:</strong> HELLO (3칸 뒤로)
+                </div>
+            </div>
+
+            <div class="concept-section">
+                <h2>특징</h2>
+                <ul style="margin-left: 20px; line-height: 1.8;">
+                    <li>✓ 구현이 매우 간단합니다</li>
+                    <li>✓ 이해하기 쉽습니다</li>
+                    <li>✗ 보안성이 매우 낮습니다 (26가지 경우의 수만 존재)</li>
+                    <li>✗ 쉽게 복호화될 수 있습니다</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- 실습 탭 -->
+        <div id="practice" class="content">
+            <div class="concept-section">
+                <h2>🔒 암호화</h2>
+                <div class="practice-section">
+                    <div class="input-group">
+                        <label for="plaintext">원문을 입력하세요:</label>
+                        <textarea id="plaintext" placeholder="예: HELLO WORLD"></textarea>
+                    </div>
+
+                    <div class="input-group">
+                        <label for="encryptShift">시프트 값 (1-25):</label>
+                        <div class="shift-slider">
+                            <input type="range" id="encryptShift" min="1" max="25" value="3" onchange="updateEncryptShiftDisplay()">
+                            <span class="shift-value" id="encryptShiftDisplay">3</span>
+                        </div>
+                    </div>
+
+                    <button onclick="encrypt()">🔐 암호화</button>
+
+                    <div id="encryptResult" class="result-box">
+                        <div class="result-title">암호화 결과:</div>
+                        <textarea id="encryptedOutput" readonly></textarea>
+                    </div>
+                </div>
+            </div>
+
+            <hr style="margin: 40px 0; border: none; border-top: 2px solid #ddd;">
+
+            <div class="concept-section">
+                <h2>🔓 복호화</h2>
+                <div class="practice-section">
+                    <div class="input-group">
+                        <label for="ciphertext">암호문을 입력하세요:</label>
+                        <textarea id="ciphertext" placeholder="예: KHOOR ZRUOG"></textarea>
+                    </div>
+
+                    <div class="input-group">
+                        <label for="decryptShift">시프트 값 (1-25):</label>
+                        <div class="shift-slider">
+                            <input type="range" id="decryptShift" min="1" max="25" value="3" onchange="updateDecryptShiftDisplay()">
+                            <span class="shift-value" id="decryptShiftDisplay">3</span>
+                        </div>
+                    </div>
+
+                    <button onclick="decrypt()">🔓 복호화</button>
+
+                    <div id="decryptResult" class="result-box">
+                        <div class="result-title">복호화 결과:</div>
+                        <textarea id="decryptedOutput" readonly></textarea>
+                    </div>
+                </div>
+            </div>
+
+            <hr style="margin: 40px 0; border: none; border-top: 2px solid #ddd;">
+
+            <div class="concept-section">
+                <h2>🔍 모든 경우의 수 복호화</h2>
+                <p>시프트 값을 모르는 경우, 가능한 모든 시프트 값(1-25)으로 복호화해 보세요!</p>
+                <div class="practice-section">
+                    <div class="input-group">
+                        <label for="bruteforceText">암호문을 입력하세요:</label>
+                        <textarea id="bruteforceText" placeholder="예: KHOOR"></textarea>
+                    </div>
+
+                    <button onclick="bruteForce()">🔎 모든 경우의 수 시도</button>
+
+                    <div id="bruteforceResult" class="result-box">
+                        <div class="result-title">가능한 모든 복호화 결과:</div>
+                        <div id="bruteforcelist" style="max-height: 400px; overflow-y: auto;"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 게임 탭 -->
+        <div id="game" class="content">
+            <div class="game-section">
+                <h2 style="color: #667eea; margin-bottom: 20px;">⚡ 빠른 복호화 게임</h2>
+
+                <div class="game-info">
+                    <strong>📋 게임 설명:</strong><br>
+                    컴퓨터가 암호화된 문자열을 제시합니다. 당신은 인간의 직관력으로 컴퓨터보다 빠르게 원문을 맞춰야 합니다!<br><br>
+                    <strong>⏱️ 시간 제한:</strong> 난이도에 따라 다름<br>
+                    <strong>⭐ 난이도:</strong> 초급(30초), 중급(20초), 상급(10초)<br>
+                    <strong>💡 힌트:</strong> 각 난이도별로 제한된 횟수의 힌트를 사용할 수 있습니다!
+                </div>
+
+                <div class="game-controls">
+                    <button class="difficulty-btn active" onclick="setDifficulty('easy', this)">초급</button>
+                    <button class="difficulty-btn" onclick="setDifficulty('medium', this)">중급</button>
+                    <button class="difficulty-btn" onclick="setDifficulty('hard', this)">상급</button>
+                </div>
+
+                <div class="guide-box">
+                    <div class="guide-title">📖 게임 풀이 가이드</div>
+                    <div class="guide-content">
+                        <div class="guide-step"><strong>1단계:</strong> 첫 글자 찾기 - 가장 흔한 글자인 E, T, A 중에서 시작해보세요</div>
+                        <div class="guide-step"><strong>2단계:</strong> 패턴 찾기 - 같은 글자가 반복되는 패턴을 찾아보세요</div>
+                        <div class="guide-step"><strong>3단계:</strong> 추측하기 - 같은 시프트 값으로 모든 글자가 변환되므로, 한 글자를 알면 전체를 알 수 있습니다</div>
+                        <div class="guide-step"><strong>💡 팁:</strong> 아래 알파벳 표를 참고하여 몇 글자를 먼저 확인한 후 나머지를 추측해보세요!</div>
+                    </div>
+                </div>
+
+                <!-- 알파벳 참고 표 -->
+                <div class="alphabet-reference">
+                    <button class="toggle-alphabet-btn expanded" onclick="toggleAlphabet(this)">📍 알파벳 참고 표</button>
+                    <div class="alphabet-content expanded">
+                        <div style="margin-top: 15px;">
+                            <div style="font-size: 0.9em; color: #666; margin-bottom: 10px; text-align: center;">
+                                원문 위의 암호문을 보고 패턴을 찾아보세요!
+                            </div>
+                            <div style="background: white; padding: 15px; border-radius: 6px; border: 1px solid #ddd;">
+                                <div style="margin-bottom: 15px;">
+                                    <div style="font-size: 0.85em; font-weight: bold; color: #667eea; margin-bottom: 5px; text-align: center;">원문</div>
+                                    <div class="alphabet-wrapper">
+                                        <div class="alphabet-item"><div class="alphabet-letter">A</div><div class="alphabet-label">1</div></div>
+                                        <div class="alphabet-item"><div class="alphabet-letter">B</div><div class="alphabet-label">2</div></div>
+                                        <div class="alphabet-item"><div class="alphabet-letter">C</div><div class="alphabet-label">3</div></div>
+                                        <div class="alphabet-item"><div class="alphabet-letter">D</div><div class="alphabet-label">4</div></div>
+                                        <div class="alphabet-item"><div class="alphabet-letter">E</div><div class="alphabet-label">5</div></div>
+                                        <div class="alphabet-item"><div class="alphabet-letter">F</div><div class="alphabet-label">6</div></div>
+                                        <div class="alphabet-item"><div class="alphabet-letter">G</div><div class="alphabet-label">7</div></div>
+                                        <div class="alphabet-item"><div class="alphabet-letter">H</div><div class="alphabet-label">8</div></div>
+                                        <div class="alphabet-item"><div class="alphabet-letter">I</div><div class="alphabet-label">9</div></div>
+                                        <div class="alphabet-item"><div class="alphabet-letter">J</div><div class="alphabet-label">10</div></div>
+                                        <div class="alphabet-item"><div class="alphabet-letter">K</div><div class="alphabet-label">11</div></div>
+                                        <div class="alphabet-item"><div class="alphabet-letter">L</div><div class="alphabet-label">12</div></div>
+                                        <div class="alphabet-item"><div class="alphabet-letter">M</div><div class="alphabet-label">13</div></div>
+                                        <div class="alphabet-item"><div class="alphabet-letter">N</div><div class="alphabet-label">14</div></div>
+                                        <div class="alphabet-item"><div class="alphabet-letter">O</div><div class="alphabet-label">15</div></div>
+                                        <div class="alphabet-item"><div class="alphabet-letter">P</div><div class="alphabet-label">16</div></div>
+                                        <div class="alphabet-item"><div class="alphabet-letter">Q</div><div class="alphabet-label">17</div></div>
+                                        <div class="alphabet-item"><div class="alphabet-letter">R</div><div class="alphabet-label">18</div></div>
+                                        <div class="alphabet-item"><div class="alphabet-letter">S</div><div class="alphabet-label">19</div></div>
+                                        <div class="alphabet-item"><div class="alphabet-letter">T</div><div class="alphabet-label">20</div></div>
+                                        <div class="alphabet-item"><div class="alphabet-letter">U</div><div class="alphabet-label">21</div></div>
+                                        <div class="alphabet-item"><div class="alphabet-letter">V</div><div class="alphabet-label">22</div></div>
+                                        <div class="alphabet-item"><div class="alphabet-letter">W</div><div class="alphabet-label">23</div></div>
+                                        <div class="alphabet-item"><div class="alphabet-letter">X</div><div class="alphabet-label">24</div></div>
+                                        <div class="alphabet-item"><div class="alphabet-letter">Y</div><div class="alphabet-label">25</div></div>
+                                        <div class="alphabet-item"><div class="alphabet-letter">Z</div><div class="alphabet-label">26</div></div>
+                                    </div>
+                                </div>
+                                <div style="text-align: center; color: #999; margin: 10px 0;">⬇️ 시프트 값만큼 이동</div>
+                                <div>
+                                    <div style="font-size: 0.85em; font-weight: bold; color: #667eea; margin-bottom: 5px; text-align: center;">암호문</div>
+                                    <div class="alphabet-wrapper">
+                                        <div class="alphabet-item"><div class="alphabet-letter">A</div><div class="alphabet-label"></div></div>
+                                        <div class="alphabet-item"><div class="alphabet-letter">B</div><div class="alphabet-label"></div></div>
+                                        <div class="alphabet-item"><div class="alphabet-letter">C</div><div class="alphabet-label"></div></div>
+                                        <div class="alphabet-item"><div class="alphabet-letter">D</div><div class="alphabet-label"></div></div>
+                                        <div class="alphabet-item"><div class="alphabet-letter">E</div><div class="alphabet-label"></div></div>
+                                        <div class="alphabet-item"><div class="alphabet-letter">F</div><div class="alphabet-label"></div></div>
+                                        <div class="alphabet-item"><div class="alphabet-letter">G</div><div class="alphabet-label"></div></div>
+                                        <div class="alphabet-item"><div class="alphabet-letter">H</div><div class="alphabet-label"></div></div>
+                                        <div class="alphabet-item"><div class="alphabet-letter">I</div><div class="alphabet-label"></div></div>
+                                        <div class="alphabet-item"><div class="alphabet-letter">J</div><div class="alphabet-label"></div></div>
+                                        <div class="alphabet-item"><div class="alphabet-letter">K</div><div class="alphabet-label"></div></div>
+                                        <div class="alphabet-item"><div class="alphabet-letter">L</div><div class="alphabet-label"></div></div>
+                                        <div class="alphabet-item"><div class="alphabet-letter">M</div><div class="alphabet-label"></div></div>
+                                        <div class="alphabet-item"><div class="alphabet-letter">N</div><div class="alphabet-label"></div></div>
+                                        <div class="alphabet-item"><div class="alphabet-letter">O</div><div class="alphabet-label"></div></div>
+                                        <div class="alphabet-item"><div class="alphabet-letter">P</div><div class="alphabet-label"></div></div>
+                                        <div class="alphabet-item"><div class="alphabet-letter">Q</div><div class="alphabet-label"></div></div>
+                                        <div class="alphabet-item"><div class="alphabet-letter">R</div><div class="alphabet-label"></div></div>
+                                        <div class="alphabet-item"><div class="alphabet-letter">S</div><div class="alphabet-label"></div></div>
+                                        <div class="alphabet-item"><div class="alphabet-letter">T</div><div class="alphabet-label"></div></div>
+                                        <div class="alphabet-item"><div class="alphabet-letter">U</div><div class="alphabet-label"></div></div>
+                                        <div class="alphabet-item"><div class="alphabet-letter">V</div><div class="alphabet-label"></div></div>
+                                        <div class="alphabet-item"><div class="alphabet-letter">W</div><div class="alphabet-label"></div></div>
+                                        <div class="alphabet-item"><div class="alphabet-letter">X</div><div class="alphabet-label"></div></div>
+                                        <div class="alphabet-item"><div class="alphabet-letter">Y</div><div class="alphabet-label"></div></div>
+                                        <div class="alphabet-item"><div class="alphabet-letter">Z</div><div class="alphabet-label"></div></div>
+                                    </div>
+                                </div>
+                                <div style="font-size: 0.85em; color: #666; margin-top: 15px; padding-top: 15px; border-top: 1px solid #ddd; text-align: center;">
+                                    💡 <strong>사용 방법:</strong> 암호문의 글자를 찾고, 원문 표에서 위 혹은 아래 글자를 보면 시프트 패턴을 알 수 있습니다!
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="hint-section">
+                    <div class="hint-title">
+                        💡 힌트 및 가이드 <span class="hint-counter" id="hintCounter">힌트 남음: 2</span>
+                    </div>
+                    <div class="hint-content" id="hintContent">
+                        <div id="hintButtons" style="margin-bottom: 10px;">
+                            <button class="hint-button" id="hintBtn1" onclick="useHint('first')">첫 글자 보기</button>
+                            <button class="hint-button" id="hintBtn2" onclick="useHint('all')">전체 보기</button>
+                            <button class="hint-button" id="hintBtn3" onclick="useHint('shift')">시프트 값 보기</button>
+                        </div>
+                        <div id="hintDisplay"></div>
+                    </div>
+                </div>
+
+                <div class="game-display">
+                    <div style="margin-bottom: 10px; color: #666;">🔒 암호화된 문자:</div>
+                    <div class="encrypted-text" id="gameEncrypted">START 버튼을 눌러 시작하세요!</div>
+                    <div class="timer" id="gameTimer" style="display: none;">0</div>
+                </div>
+
+                <div class="input-group">
+                    <label for="gameGuess">당신의 답:</label>
+                    <input type="text" id="gameGuess" placeholder="원문을 입력하세요..." onkeypress="if(event.key==='Enter') submitGuess()">
+                </div>
+
+                <div class="button-group" style="justify-content: center;">
+                    <button id="gameStartBtn" onclick="startGame()">🎮 START</button>
+                    <button id="gameSubmitBtn" onclick="submitGuess()" style="display: none;">⚙️ 제출</button>
+                    <button id="gameStopBtn" onclick="stopGame()" style="display: none; background: #dc3545;">🛑 중지</button>
+                </div>
+
+                <div class="game-result" id="gameResult"></div>
+
+                <div class="stats">
+                    <div class="stat-box">
+                        <div class="stat-label">⏱️ 당신의 시간</div>
+                        <div class="stat-value" id="playerTime">-</div>
+                    </div>
+                    <div class="stat-box">
+                        <div class="stat-label">📊 정답률</div>
+                        <div class="stat-value" id="accuracy">-</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // 탭 전환
+        function switchTab(tabName) {
+            const contents = document.querySelectorAll('.content');
+            const buttons = document.querySelectorAll('.tab-btn');
+
+            contents.forEach(content => content.classList.remove('active'));
+            buttons.forEach(btn => btn.classList.remove('active'));
+
+            document.getElementById(tabName).classList.add('active');
+            event.target.classList.add('active');
+        }
+
+        // 알파벳 참고 표 토글
+        function toggleAlphabet(btn) {
+            const content = btn.nextElementSibling;
+            btn.classList.toggle('expanded');
+            content.classList.toggle('expanded');
+        }
+
+        // 암호화 및 복호화 함수
+        function shiftChar(char, shift) {
+            if (/[A-Z]/.test(char)) {
+                return String.fromCharCode((char.charCodeAt(0) - 65 + shift) % 26 + 65);
+            } else if (/[a-z]/.test(char)) {
+                return String.fromCharCode((char.charCodeAt(0) - 97 + shift) % 26 + 97);
+            }
+            return char;
+        }
+
+        function caesarCipher(text, shift, decrypt = false) {
+            const actualShift = decrypt ? (26 - shift) % 26 : shift;
+            return text.split('').map(char => shiftChar(char, actualShift)).join('');
+        }
+
+        // 암호화
+        function encrypt() {
+            const plaintext = document.getElementById('plaintext').value;
+            const shift = parseInt(document.getElementById('encryptShift').value);
+
+            if (plaintext.trim() === '') {
+                alert('원문을 입력해주세요!');
+                return;
+            }
+
+            const encrypted = caesarCipher(plaintext, shift);
+            const resultBox = document.getElementById('encryptResult');
+            document.getElementById('encryptedOutput').value = encrypted;
+            resultBox.classList.add('show');
+        }
+
+        // 복호화
+        function decrypt() {
+            const ciphertext = document.getElementById('ciphertext').value;
+            const shift = parseInt(document.getElementById('decryptShift').value);
+
+            if (ciphertext.trim() === '') {
+                alert('암호문을 입력해주세요!');
+                return;
+            }
+
+            const decrypted = caesarCipher(ciphertext, shift, true);
+            const resultBox = document.getElementById('decryptResult');
+            document.getElementById('decryptedOutput').value = decrypted;
+            resultBox.classList.add('show');
+        }
+
+        // 모든 경우의 수 시도 (Brute Force)
+        function bruteForce() {
+            const text = document.getElementById('bruteforceText').value;
+
+            if (text.trim() === '') {
+                alert('암호문을 입력해주세요!');
+                return;
+            }
+
+            let results = '<table style="width:100%; border-collapse: collapse;">';
+            results += '<tr style="background:#667eea; color:white;"><th style="padding:10px; border:1px solid #ddd;">시프트</th><th style="padding:10px; border:1px solid #ddd;">결과</th></tr>';
+
+            for (let i = 1; i <= 25; i++) {
+                const decrypted = caesarCipher(text, i, true);
+                results += `<tr style="background:${i % 2 === 0 ? '#f8f9fa' : '#fff'};"><td style="padding:10px; border:1px solid #ddd; font-weight:bold;">${i}</td><td style="padding:10px; border:1px solid #ddd; font-family:monospace;">${decrypted}</td></tr>`;
+            }
+
+            results += '</table>';
+            document.getElementById('bruteforcelist').innerHTML = results;
+            document.getElementById('bruteforceResult').classList.add('show');
+        }
+
+        // Shift 값 업데이트 표시
+        function updateEncryptShiftDisplay() {
+            document.getElementById('encryptShiftDisplay').textContent = 
+                document.getElementById('encryptShift').value;
+        }
+
+        function updateDecryptShiftDisplay() {
+            document.getElementById('decryptShiftDisplay').textContent = 
+                document.getElementById('decryptShift').value;
+        }
+
+        // ===== 게임 로직 =====
+        let currentGameShift = 0;
+        let currentGameText = '';
+        let gameStartTime = 0;
+        let gameTimer = null;
+        let difficulty = 'easy';
+        let gameActive = false;
+        let hintsUsed = 0;
+        let maxHints = 2;
+
+        const difficultySettings = {
+            easy: { 
+                time: 30, 
+                hints: 3,
+                words: ['CAESAR', 'CIPHER', 'SECURITY', 'ALPHABET', 'ENCRYPTION', 'DECODE', 'PUZZLE', 'CHALLENGE', 'ANCIENT', 'STRATEGY', 'PROTECT', 'MESSAGE', 'SECRET', 'HIDDEN'] 
+            },
+            medium: { 
+                time: 20, 
+                hints: 2,
+                words: ['CRYPTOGRAPHY', 'MYSTERIOUS', 'INTELLIGENCE', 'PROTECTION', 'SECRECY', 'MESSAGE', 'HIDDEN', 'DISCOVER', 'TRANSFORM', 'SYSTEM', 'BREAKING', 'SHIFTING'] 
+            },
+            hard: { 
+                time: 10, 
+                hints: 1,
+                words: ['CRYPTOGRAPHIC', 'SUBSTITUTION', 'TRANSPOSITION', 'AUTHENTICATION', 'CONFIDENTIAL', 'VULNERABILITY', 'PENETRATION', 'ALGORITHM', 'IMPLEMENTATION', 'DECRYPTION'] 
+            }
+        };
+
+        function setDifficulty(level, btn) {
+            difficulty = level;
+            document.querySelectorAll('.difficulty-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            if (gameActive) stopGame();
+            resetHints();
+        }
+
+        function resetHints() {
+            hintsUsed = 0;
+            maxHints = difficultySettings[difficulty].hints;
+            updateHintCounter();
+            document.getElementById('hintDisplay').innerHTML = '';
+            document.getElementById('hintBtn1').disabled = false;
+            document.getElementById('hintBtn2').disabled = false;
+            document.getElementById('hintBtn3').disabled = false;
+        }
+
+        function updateHintCounter() {
+            const remaining = maxHints - hintsUsed;
+            document.getElementById('hintCounter').textContent = `힌트 남음: ${remaining}`;
+        }
+
+        function getRandomWord() {
+            const words = difficultySettings[difficulty].words;
+            return words[Math.floor(Math.random() * words.length)];
+        }
+
+        function useHint(type) {
+            if (hintsUsed >= maxHints) {
+                alert(`더 이상 힌트를 사용할 수 없습니다. (${maxHints}/${maxHints} 사용)`);
+                return;
+            }
+
+            let hintText = '';
+            const encrypted = document.getElementById('gameEncrypted').textContent;
+
+            if (type === 'first') {
+                hintText = `<div class="hint-box">
+                    <strong>📍 첫 글자 힌트:</strong><br>
+                    첫 글자: <span style="font-family: monospace; font-weight: bold; color: #667eea;">? → ${currentGameText[0]}</span><br>
+                    <span style="font-size: 0.9em; color: #666;">암호문의 첫 글자 <strong>${encrypted[0]}</strong>는 원문의 <strong>${currentGameText[0]}</strong>로 해석됩니다!</span>
+                </div>`;
+            } else if (type === 'all') {
+                hintText = `<div class="hint-box">
+                    <strong>🔓 전체 보기:</strong><br>
+                    <span style="font-family: monospace; font-weight: bold; color: #28a745; font-size: 1.1em;">${currentGameText}</span><br>
+                    <span style="font-size: 0.9em; color: #666;">이제 이 단어를 입력하고 제출 버튼을 누르면 됩니다!</span>
+                </div>`;
+            } else if (type === 'shift') {
+                hintText = `<div class="hint-box">
+                    <strong>🔑 시프트 값 힌트:</strong><br>
+                    시프트 값은 <strong><span style="color: #667eea; font-size: 1.1em;">${currentGameShift}</span></strong>입니다!<br>
+                    <span style="font-size: 0.9em; color: #666;">암호문의 각 글자에서 ${currentGameShift}칸 뒤로 가면 원문이 됩니다.</span>
+                </div>`;
+            }
+
+            document.getElementById('hintDisplay').innerHTML = hintText;
+            hintsUsed++;
+            updateHintCounter();
+        }
+
+        function startGame() {
+            resetHints();
+            gameActive = true;
+            const timeLimit = difficultySettings[difficulty].time;
+
+            currentGameText = getRandomWord();
+            currentGameShift = Math.floor(Math.random() * 25) + 1;
+            const encrypted = caesarCipher(currentGameText, currentGameShift);
+
+            document.getElementById('gameEncrypted').textContent = encrypted;
+            document.getElementById('gameGuess').value = '';
+            document.getElementById('gameGuess').focus();
+            document.getElementById('gameResult').classList.remove('show');
+            document.getElementById('gameResult').classList.remove('correct');
+            document.getElementById('gameResult').classList.remove('incorrect');
+
+            document.getElementById('gameStartBtn').style.display = 'none';
+            document.getElementById('gameSubmitBtn').style.display = 'inline-block';
+            document.getElementById('gameStopBtn').style.display = 'inline-block';
+
+            document.getElementById('gameTimer').style.display = 'block';
+            document.getElementById('playerTime').textContent = '-';
+            document.getElementById('accuracy').textContent = '-';
+
+            gameStartTime = Date.now();
+            let timeLeft = timeLimit;
+
+            document.getElementById('gameTimer').textContent = timeLeft;
+            document.getElementById('gameTimer').classList.remove('warning');
+
+            gameTimer = setInterval(() => {
+                timeLeft--;
+                document.getElementById('gameTimer').textContent = timeLeft;
+
+                if (timeLeft <= 5) {
+                    document.getElementById('gameTimer').classList.add('warning');
+                }
+
+                if (timeLeft <= 0) {
+                    clearInterval(gameTimer);
+                    document.getElementById('gameResult').classList.add('show');
+                    document.getElementById('gameResult').classList.add('incorrect');
+                    document.getElementById('gameResult').innerHTML = `
+                        <div>❌ 시간 초과!</div>
+                        <div style="margin-top: 10px; font-size: 1em;">정답: <span style="color: #28a745; font-family: monospace; font-weight: bold;">${currentGameText}</span></div>
+                        <div style="margin-top: 8px; font-size: 0.9em;">시프트 값: ${currentGameShift}</div>
+                    `;
+                    stopGame();
+                }
+            }, 1000);
+        }
+
+        function submitGuess() {
+            if (!gameActive) return;
+
+            const guess = document.getElementById('gameGuess').value.toUpperCase().trim();
+            const elapsedTime = ((Date.now() - gameStartTime) / 1000).toFixed(2);
+
+            clearInterval(gameTimer);
+
+            const resultBox = document.getElementById('gameResult');
+            resultBox.classList.add('show');
+
+            if (guess === currentGameText) {
+                resultBox.classList.add('correct');
+                resultBox.classList.remove('incorrect');
+                resultBox.innerHTML = `
+                    <div>✅ 정답! 축하합니다!</div>
+                    <div style="margin-top: 10px; font-size: 1em;">단어: <span style="color: #28a745; font-family: monospace; font-weight: bold;">${currentGameText}</span></div>
+                    <div style="margin-top: 8px; font-size: 0.9em;">시프트 값: ${currentGameShift}</div>
+                    <div style="margin-top: 8px; font-size: 1.2em; color: #667eea;">🎉 ${elapsedTime}초!</div>
+                `;
+                document.getElementById('playerTime').textContent = `${elapsedTime}초`;
+                document.getElementById('accuracy').textContent = '100%';
+            } else {
+                resultBox.classList.add('incorrect');
+                resultBox.classList.remove('correct');
+                resultBox.innerHTML = `
+                    <div>❌ 틀렸습니다!</div>
+                    <div style="margin-top: 10px; font-size: 1em;">정답: <span style="color: #28a745; font-family: monospace; font-weight: bold;">${currentGameText}</span></div>
+                    <div style="margin-top: 8px; font-size: 0.9em;">당신의 답: <span style="font-family: monospace;">${guess || '(비어있음)'}</span></div>
+                    <div style="margin-top: 8px; font-size: 0.9em;">시프트 값: ${currentGameShift}</div>
+                `;
+                document.getElementById('playerTime').textContent = elapsedTime + '초 (실패)';
+                document.getElementById('accuracy').textContent = '0%';
+            }
+
+            stopGame();
+        }
+
+        function stopGame() {
+            gameActive = false;
+            clearInterval(gameTimer);
+            document.getElementById('gameStartBtn').style.display = 'inline-block';
+            document.getElementById('gameSubmitBtn').style.display = 'none';
+            document.getElementById('gameStopBtn').style.display = 'none';
+            document.getElementById('gameTimer').style.display = 'none';
+        }
+
+        // 엔터키로 제출
+        document.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter' && gameActive && document.getElementById('gameGuess') === document.activeElement) {
+                submitGuess();
+            }
+        });
+    </script>
+</body>
+</html>
+
+
+
+							<script>
+                            	
+        // 탭 전환
+        function switchTab(tabName) {
+            const contents = document.querySelectorAll('.content');
+            const buttons = document.querySelectorAll('.tab-btn');
+
+            contents.forEach(content => content.classList.remove('active'));
+            buttons.forEach(btn => btn.classList.remove('active'));
+
+            document.getElementById(tabName).classList.add('active');
+            event.target.classList.add('active');
+        }
+
+        // 알파벳 참고 표 토글
+        function toggleAlphabet(btn) {
+            const content = btn.nextElementSibling;
+            btn.classList.toggle('expanded');
+            content.classList.toggle('expanded');
+        }
+
+        // 암호화 및 복호화 함수
+        function shiftChar(char, shift) {
+            if (/[A-Z]/.test(char)) {
+                return String.fromCharCode((char.charCodeAt(0) - 65 + shift) % 26 + 65);
+            } else if (/[a-z]/.test(char)) {
+                return String.fromCharCode((char.charCodeAt(0) - 97 + shift) % 26 + 97);
+            }
+            return char;
+        }
+
+        function caesarCipher(text, shift, decrypt = false) {
+            const actualShift = decrypt ? (26 - shift) % 26 : shift;
+            return text.split('').map(char => shiftChar(char, actualShift)).join('');
+        }
+
+        // 암호화
+        function encrypt() {
+            const plaintext = document.getElementById('plaintext').value;
+            const shift = parseInt(document.getElementById('encryptShift').value);
+
+            if (plaintext.trim() === '') {
+                alert('원문을 입력해주세요!');
+                return;
+            }
+
+            const encrypted = caesarCipher(plaintext, shift);
+            const resultBox = document.getElementById('encryptResult');
+            document.getElementById('encryptedOutput').value = encrypted;
+            resultBox.classList.add('show');
+        }
+
+        // 복호화
+        function decrypt() {
+            const ciphertext = document.getElementById('ciphertext').value;
+            const shift = parseInt(document.getElementById('decryptShift').value);
+
+            if (ciphertext.trim() === '') {
+                alert('암호문을 입력해주세요!');
+                return;
+            }
+
+            const decrypted = caesarCipher(ciphertext, shift, true);
+            const resultBox = document.getElementById('decryptResult');
+            document.getElementById('decryptedOutput').value = decrypted;
+            resultBox.classList.add('show');
+        }
+
+        // 모든 경우의 수 시도 (Brute Force)
+        function bruteForce() {
+            const text = document.getElementById('bruteforceText').value;
+
+            if (text.trim() === '') {
+                alert('암호문을 입력해주세요!');
+                return;
+            }
+
+            let results = '<table style="width:100%; border-collapse: collapse;">';
+            results += '<tr style="background:#667eea; color:white;"><th style="padding:10px; border:1px solid #ddd;">시프트</th><th style="padding:10px; border:1px solid #ddd;">결과</th></tr>';
+
+            for (let i = 1; i <= 25; i++) {
+                const decrypted = caesarCipher(text, i, true);
+                results += `<tr style="background:${i % 2 === 0 ? '#f8f9fa' : '#fff'};"><td style="padding:10px; border:1px solid #ddd; font-weight:bold;">${i}</td><td style="padding:10px; border:1px solid #ddd; font-family:monospace;">${decrypted}</td></tr>`;
+            }
+
+            results += '</table>';
+            document.getElementById('bruteforcelist').innerHTML = results;
+            document.getElementById('bruteforceResult').classList.add('show');
+        }
+
+        // Shift 값 업데이트 표시
+        function updateEncryptShiftDisplay() {
+            document.getElementById('encryptShiftDisplay').textContent = 
+                document.getElementById('encryptShift').value;
+        }
+
+        function updateDecryptShiftDisplay() {
+            document.getElementById('decryptShiftDisplay').textContent = 
+                document.getElementById('decryptShift').value;
+        }
+
+        // ===== 게임 로직 =====
+        let currentGameShift = 0;
+        let currentGameText = '';
+        let gameStartTime = 0;
+        let gameTimer = null;
+        let difficulty = 'easy';
+        let gameActive = false;
+        let hintsUsed = 0;
+        let maxHints = 2;
+
+        const difficultySettings = {
+            easy: { 
+                time: 30, 
+                hints: 3,
+                words: ['CAESAR', 'CIPHER', 'SECURITY', 'ALPHABET', 'ENCRYPTION', 'DECODE', 'PUZZLE', 'CHALLENGE', 'ANCIENT', 'STRATEGY', 'PROTECT', 'MESSAGE', 'SECRET', 'HIDDEN'] 
+            },
+            medium: { 
+                time: 20, 
+                hints: 2,
+                words: ['CRYPTOGRAPHY', 'MYSTERIOUS', 'INTELLIGENCE', 'PROTECTION', 'SECRECY', 'MESSAGE', 'HIDDEN', 'DISCOVER', 'TRANSFORM', 'SYSTEM', 'BREAKING', 'SHIFTING'] 
+            },
+            hard: { 
+                time: 10, 
+                hints: 1,
+                words: ['CRYPTOGRAPHIC', 'SUBSTITUTION', 'TRANSPOSITION', 'AUTHENTICATION', 'CONFIDENTIAL', 'VULNERABILITY', 'PENETRATION', 'ALGORITHM', 'IMPLEMENTATION', 'DECRYPTION'] 
+            }
+        };
+
+        function setDifficulty(level, btn) {
+            difficulty = level;
+            document.querySelectorAll('.difficulty-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            if (gameActive) stopGame();
+            resetHints();
+        }
+
+        function resetHints() {
+            hintsUsed = 0;
+            maxHints = difficultySettings[difficulty].hints;
+            updateHintCounter();
+            document.getElementById('hintDisplay').innerHTML = '';
+            document.getElementById('hintBtn1').disabled = false;
+            document.getElementById('hintBtn2').disabled = false;
+            document.getElementById('hintBtn3').disabled = false;
+        }
+
+        function updateHintCounter() {
+            const remaining = maxHints - hintsUsed;
+            document.getElementById('hintCounter').textContent = `힌트 남음: ${remaining}`;
+        }
+
+        function getRandomWord() {
+            const words = difficultySettings[difficulty].words;
+            return words[Math.floor(Math.random() * words.length)];
+        }
+
+        function useHint(type) {
+            if (hintsUsed >= maxHints) {
+                alert(`더 이상 힌트를 사용할 수 없습니다. (${maxHints}/${maxHints} 사용)`);
+                return;
+            }
+
+            let hintText = '';
+            const encrypted = document.getElementById('gameEncrypted').textContent;
+
+            if (type === 'first') {
+                hintText = `<div class="hint-box">
+                    <strong>📍 첫 글자 힌트:</strong><br>
+                    첫 글자: <span style="font-family: monospace; font-weight: bold; color: #667eea;">? → ${currentGameText[0]}</span><br>
+                    <span style="font-size: 0.9em; color: #666;">암호문의 첫 글자 <strong>${encrypted[0]}</strong>는 원문의 <strong>${currentGameText[0]}</strong>로 해석됩니다!</span>
+                </div>`;
+            } else if (type === 'all') {
+                hintText = `<div class="hint-box">
+                    <strong>🔓 전체 보기:</strong><br>
+                    <span style="font-family: monospace; font-weight: bold; color: #28a745; font-size: 1.1em;">${currentGameText}</span><br>
+                    <span style="font-size: 0.9em; color: #666;">이제 이 단어를 입력하고 제출 버튼을 누르면 됩니다!</span>
+                </div>`;
+            } else if (type === 'shift') {
+                hintText = `<div class="hint-box">
+                    <strong>🔑 시프트 값 힌트:</strong><br>
+                    시프트 값은 <strong><span style="color: #667eea; font-size: 1.1em;">${currentGameShift}</span></strong>입니다!<br>
+                    <span style="font-size: 0.9em; color: #666;">암호문의 각 글자에서 ${currentGameShift}칸 뒤로 가면 원문이 됩니다.</span>
+                </div>`;
+            }
+
+            document.getElementById('hintDisplay').innerHTML = hintText;
+            hintsUsed++;
+            updateHintCounter();
+        }
+
+        function startGame() {
+            resetHints();
+            gameActive = true;
+            const timeLimit = difficultySettings[difficulty].time;
+
+            currentGameText = getRandomWord();
+            currentGameShift = Math.floor(Math.random() * 25) + 1;
+            const encrypted = caesarCipher(currentGameText, currentGameShift);
+
+            document.getElementById('gameEncrypted').textContent = encrypted;
+            document.getElementById('gameGuess').value = '';
+            document.getElementById('gameGuess').focus();
+            document.getElementById('gameResult').classList.remove('show');
+            document.getElementById('gameResult').classList.remove('correct');
+            document.getElementById('gameResult').classList.remove('incorrect');
+
+            document.getElementById('gameStartBtn').style.display = 'none';
+            document.getElementById('gameSubmitBtn').style.display = 'inline-block';
+            document.getElementById('gameStopBtn').style.display = 'inline-block';
+
+            document.getElementById('gameTimer').style.display = 'block';
+            document.getElementById('playerTime').textContent = '-';
+            document.getElementById('accuracy').textContent = '-';
+
+            gameStartTime = Date.now();
+            let timeLeft = timeLimit;
+
+            document.getElementById('gameTimer').textContent = timeLeft;
+            document.getElementById('gameTimer').classList.remove('warning');
+
+            gameTimer = setInterval(() => {
+                timeLeft--;
+                document.getElementById('gameTimer').textContent = timeLeft;
+
+                if (timeLeft <= 5) {
+                    document.getElementById('gameTimer').classList.add('warning');
+                }
+
+                if (timeLeft <= 0) {
+                    clearInterval(gameTimer);
+                    document.getElementById('gameResult').classList.add('show');
+                    document.getElementById('gameResult').classList.add('incorrect');
+                    document.getElementById('gameResult').innerHTML = `
+                        <div>❌ 시간 초과!</div>
+                        <div style="margin-top: 10px; font-size: 1em;">정답: <span style="color: #28a745; font-family: monospace; font-weight: bold;">${currentGameText}</span></div>
+                        <div style="margin-top: 8px; font-size: 0.9em;">시프트 값: ${currentGameShift}</div>
+                    `;
+                    stopGame();
+                }
+            }, 1000);
+        }
+
+        function submitGuess() {
+            if (!gameActive) return;
+
+            const guess = document.getElementById('gameGuess').value.toUpperCase().trim();
+            const elapsedTime = ((Date.now() - gameStartTime) / 1000).toFixed(2);
+
+            clearInterval(gameTimer);
+
+            const resultBox = document.getElementById('gameResult');
+            resultBox.classList.add('show');
+
+            if (guess === currentGameText) {
+                resultBox.classList.add('correct');
+                resultBox.classList.remove('incorrect');
+                resultBox.innerHTML = `
+                    <div>✅ 정답! 축하합니다!</div>
+                    <div style="margin-top: 10px; font-size: 1em;">단어: <span style="color: #28a745; font-family: monospace; font-weight: bold;">${currentGameText}</span></div>
+                    <div style="margin-top: 8px; font-size: 0.9em;">시프트 값: ${currentGameShift}</div>
+                    <div style="margin-top: 8px; font-size: 1.2em; color: #667eea;">🎉 ${elapsedTime}초!</div>
+                `;
+                document.getElementById('playerTime').textContent = `${elapsedTime}초`;
+                document.getElementById('accuracy').textContent = '100%';
+            } else {
+                resultBox.classList.add('incorrect');
+                resultBox.classList.remove('correct');
+                resultBox.innerHTML = `
+                    <div>❌ 틀렸습니다!</div>
+                    <div style="margin-top: 10px; font-size: 1em;">정답: <span style="color: #28a745; font-family: monospace; font-weight: bold;">${currentGameText}</span></div>
+                    <div style="margin-top: 8px; font-size: 0.9em;">당신의 답: <span style="font-family: monospace;">${guess || '(비어있음)'}</span></div>
+                    <div style="margin-top: 8px; font-size: 0.9em;">시프트 값: ${currentGameShift}</div>
+                `;
+                document.getElementById('playerTime').textContent = elapsedTime + '초 (실패)';
+                document.getElementById('accuracy').textContent = '0%';
+            }
+
+            stopGame();
+        }
+
+        function stopGame() {
+            gameActive = false;
+            clearInterval(gameTimer);
+            document.getElementById('gameStartBtn').style.display = 'inline-block';
+            document.getElementById('gameSubmitBtn').style.display = 'none';
+            document.getElementById('gameStopBtn').style.display = 'none';
+            document.getElementById('gameTimer').style.display = 'none';
+        }
+
+        // 엔터키로 제출
+        document.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter' && gameActive && document.getElementById('gameGuess') === document.activeElement) {
+                submitGuess();
+            }
+        });
+    
+
+							</script>
+                        </body>
+                        </html>
+                    
