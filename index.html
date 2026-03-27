@@ -587,7 +587,7 @@
         </div>
         <div style="padding:12px;background:#FAFAF8;border-radius:8px;border:0.5px solid var(--border)">
           <div style="font-family:var(--mono);font-size:12px;color:var(--green);font-weight:500;margin-bottom:4px">키 (Key)</div>
-          <div style="font-size:13px;color:var(--muted)">암호화·복호화에 사용하는 비밀 값. 대칭키는 동일한 키 사용.</div>
+          <div style="font-size:13px;color:var(--muted)">암호화·복호화에 사용하는 문자열</div>
         </div>
         <div style="padding:12px;background:#FAFAF8;border-radius:8px;border:0.5px solid var(--border)">
           <div style="font-family:var(--mono);font-size:12px;color:var(--red);font-weight:500;margin-bottom:4px">복호화 (Decryption)</div>
@@ -987,13 +987,15 @@ function railViz() {
 
 // ── GAME ──
 const MISSIONS = [
-  { type:'caesar', plain:'ATTACK AT DAWN',      shift:3,  hint:'키(이동값): 3 — 카이사르가 가장 즐겨 쓴 키입니다.', level:1 },
-  { type:'caesar', plain:'SEND HELP NOW',        shift:7,  hint:'키(이동값): 7 — 각 문자를 7칸 뒤로 이동했습니다.', level:1 },
-  { type:'railfence', plain:'MEETATMIDNIGHT',    rails:2,  hint:'알고리즘: 레일펜스, 레일 수: 2', level:2 },
-  { type:'caesar', plain:'TOP SECRET',           shift:13, hint:'키(이동값): 13 — ROT13이라고도 불립니다. 13+13=26!', level:2 },
-  { type:'railfence', plain:'THEENEMYISCLOSE',   rails:3,  hint:'알고리즘: 레일펜스, 레일 수: 3 — 지그재그 패턴으로 배치', level:3 },
-  { type:'caesar', plain:'OPERATION SUNRISE',    shift:19, hint:'키(이동값): 19 — 거꾸로 7칸 이동과 같습니다. (26-7=19)', level:3 },
-  { type:'railfence', plain:'CODEISBROKEN',      rails:4,  hint:'알고리즘: 레일펜스, 레일 수: 4 — 4개의 레일로 배치!', level:3 },
+  { type:'caesar',    plain:'HELLO WORLD',       shift:3,  hint:'키(이동값): 3 — 카이사르가 즐겨 쓴 키! 암호문의 각 글자를 알파벳표에서 3칸 앞으로 당기세요.', level:1 },
+  { type:'caesar',    plain:'I LOVE PIZZA',       shift:5,  hint:'키(이동값): 5 — 각 문자를 알파벳표에서 5칸 앞으로 당기면 원문이 보입니다.', level:1 },
+  { type:'railfence', plain:'BANANA',             rails:2,  hint:'레일 수: 2 — 6글자를 2개의 레일에 지그재그로 배치했습니다.', level:1 },
+  { type:'caesar',    plain:'GOOD MORNING',       shift:7,  hint:'키(이동값): 7 — 알파벳표에서 7칸 앞으로! 도우미의 슬라이더를 7로 맞춰보세요.', level:2 },
+  { type:'railfence', plain:'KEYBOARD',           rails:2,  hint:'레일 수: 2 — 8글자를 2개의 레일로 나눠 배치했습니다. 홀수 번째와 짝수 번째 문자를 분리해보세요.', level:2 },
+  { type:'caesar',    plain:'HAPPY NEW YEAR',     shift:13, hint:'키(이동값): 13 — ROT13! 13칸 이동하면 다시 13칸 이동으로 원문 복원. 알파벳 26개의 절반이에요.', level:2 },
+  { type:'railfence', plain:'INTERNET',           rails:3,  hint:'레일 수: 3 — 8글자를 3개의 레일에 지그재그로 배치. 도우미 시각화를 참고하세요!', level:3 },
+  { type:'caesar',    plain:'THE QUICK BROWN FOX', shift:17, hint:'키(이동값): 17 — 영어의 모든 알파벳이 담긴 유명한 문장! 슬라이더를 17로 맞춰보세요.', level:3 },
+  { type:'railfence', plain:'CHOCOLATE',          rails:3,  hint:'레일 수: 3 — 9글자를 3개의 레일에 배치했습니다. 시각화 도우미로 레일 패턴을 확인하세요!', level:3 },
 ];
 
 let curMission = 0, score = 0, timer = null, timeLeft = 60;
@@ -1003,7 +1005,7 @@ function startGame() {
   document.getElementById('g-score').textContent = 0;
   document.getElementById('g-level').textContent = 1;
   document.getElementById('g-time').textContent = '60초';
-  document.getElementById('g-mission-num').textContent = '0 / ' + MISSIONS.length;
+  document.getElementById('g-mission-num').textContent = '1 / ' + MISSIONS.length;
   document.getElementById('game-result').style.display = 'none';
   document.getElementById('game-area').style.display = 'block';
   document.getElementById('g-feedback').style.display = 'none';
