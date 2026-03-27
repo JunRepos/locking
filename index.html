@@ -1,2051 +1,1169 @@
-﻿
-                        <!DOCTYPE html>
-                        <html lang="en">
-                        <head>
-                            <meta charset="UTF-8">
-                            <meta name="viewport" content="width=device-width, initial-scale=1.0">
-							<style>
-								body {
-									background-color: white; /* Ensure the iframe has a white background */
-								}
-
-								
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            min-height: 100vh;
-            padding: 20px;
-        }
-
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        header {
-            text-align: center;
-            color: white;
-            margin-bottom: 30px;
-        }
-
-        header h1 {
-            font-size: 2.5em;
-            margin-bottom: 10px;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
-        }
-
-        header p {
-            font-size: 1.1em;
-            opacity: 0.9;
-        }
-
-        .tabs {
-            display: flex;
-            gap: 10px;
-            margin-bottom: 20px;
-            flex-wrap: wrap;
-        }
-
-        .tab-btn {
-            padding: 12px 24px;
-            background: white;
-            border: none;
-            border-radius: 8px;
-            cursor: pointer;
-            font-size: 1em;
-            font-weight: bold;
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-        }
-
-        .tab-btn.active {
-            background: #667eea;
-            color: white;
-            transform: translateY(-2px);
-            box-shadow: 0 6px 12px rgba(0,0,0,0.2);
-        }
-
-        .tab-btn:hover {
-            transform: translateY(-2px);
-        }
-
-        .content {
-            background: white;
-            border-radius: 12px;
-            padding: 30px;
-            box-shadow: 0 8px 32px rgba(0,0,0,0.1);
-            display: none;
-            animation: fadeIn 0.3s ease;
-        }
-
-        .content.active {
-            display: block;
-        }
-
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-                transform: translateY(10px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .concept-section {
-            margin-bottom: 30px;
-        }
-
-        .concept-section h2 {
-            color: #667eea;
-            margin-bottom: 15px;
-            font-size: 1.8em;
-            border-bottom: 3px solid #667eea;
-            padding-bottom: 10px;
-        }
-
-        .concept-section p {
-            line-height: 1.8;
-            color: #333;
-            margin-bottom: 15px;
-        }
-
-        .cipher-table {
-            width: 100%;
-            border-collapse: collapse;
-            margin: 20px 0;
-            background: #f8f9fa;
-        }
-
-        .cipher-table td {
-            border: 2px solid #ddd;
-            padding: 10px;
-            text-align: center;
-            font-weight: bold;
-        }
-
-        .cipher-table tr:nth-child(odd) td {
-            background: #f8f9fa;
-        }
-
-        .cipher-table tr:nth-child(even) td {
-            background: #e9ecef;
-        }
-
-        .example-box {
-            background: #e7f3ff;
-            border-left: 4px solid #667eea;
-            padding: 15px;
-            margin: 15px 0;
-            border-radius: 4px;
-        }
-
-        .example-box strong {
-            color: #667eea;
-        }
-
-        .practice-section {
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
-        }
-
-        .input-group {
-            display: flex;
-            flex-direction: column;
-            gap: 8px;
-        }
-
-        label {
-            font-weight: bold;
-            color: #333;
-            font-size: 1.05em;
-        }
-
-        input[type="text"],
-        input[type="number"],
-        textarea {
-            padding: 12px;
-            border: 2px solid #ddd;
-            border-radius: 6px;
-            font-size: 1em;
-            transition: border-color 0.3s ease;
-            font-family: 'Courier New', monospace;
-        }
-
-        input[type="text"]:focus,
-        input[type="number"]:focus,
-        textarea:focus {
-            outline: none;
-            border-color: #667eea;
-            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
-        }
-
-        textarea {
-            min-height: 100px;
-            resize: vertical;
-        }
-
-        .button-group {
-            display: flex;
-            gap: 10px;
-            flex-wrap: wrap;
-        }
-
-        button {
-            padding: 12px 24px;
-            background: #667eea;
-            color: white;
-            border: none;
-            border-radius: 6px;
-            font-size: 1em;
-            font-weight: bold;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        button:hover {
-            background: #764ba2;
-            transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
-        }
-
-        button:active {
-            transform: translateY(0);
-        }
-
-        button:disabled {
-            background: #ccc;
-            cursor: not-allowed;
-            transform: none;
-        }
-
-        .result-box {
-            background: #f0f7ff;
-            border: 2px solid #667eea;
-            padding: 15px;
-            border-radius: 6px;
-            margin-top: 15px;
-            display: none;
-        }
-
-        .result-box.show {
-            display: block;
-            animation: slideDown 0.3s ease;
-        }
-
-        @keyframes slideDown {
-            from {
-                opacity: 0;
-                max-height: 0;
-            }
-            to {
-                opacity: 1;
-                max-height: 500px;
-            }
-        }
-
-        .result-title {
-            font-weight: bold;
-            color: #667eea;
-            margin-bottom: 10px;
-        }
-
-        .game-section {
-            text-align: center;
-        }
-
-        .game-info {
-            background: #fff3cd;
-            border-left: 4px solid #ffc107;
-            padding: 15px;
-            margin-bottom: 20px;
-            border-radius: 4px;
-            text-align: left;
-        }
-
-        .game-controls {
-            display: flex;
-            gap: 10px;
-            justify-content: center;
-            margin-bottom: 20px;
-            flex-wrap: wrap;
-        }
-
-        .difficulty-btn {
-            padding: 10px 20px;
-            background: #e9ecef;
-            color: #333;
-            border: 2px solid #ddd;
-            border-radius: 6px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        .difficulty-btn.active {
-            background: #667eea;
-            color: white;
-            border-color: #667eea;
-        }
-
-        .game-display {
-            background: #f8f9fa;
-            padding: 30px;
-            border-radius: 8px;
-            margin-bottom: 20px;
-            border: 2px solid #ddd;
-        }
-
-        .encrypted-text {
-            font-size: 1.5em;
-            font-weight: bold;
-            color: #667eea;
-            word-break: break-all;
-            margin-bottom: 15px;
-            font-family: 'Courier New', monospace;
-            letter-spacing: 3px;
-        }
-
-        .timer {
-            font-size: 2em;
-            color: #dc3545;
-            font-weight: bold;
-            margin-bottom: 15px;
-        }
-
-        .timer.warning {
-            animation: blink 0.5s infinite;
-        }
-
-        @keyframes blink {
-            0%, 50% { opacity: 1; }
-            51%, 100% { opacity: 0.5; }
-        }
-
-        .guess-input {
-            font-size: 1.2em;
-            padding: 15px;
-            margin-bottom: 15px;
-        }
-
-        .game-result {
-            font-size: 1.2em;
-            font-weight: bold;
-            padding: 15px;
-            border-radius: 6px;
-            margin-bottom: 15px;
-            display: none;
-        }
-
-        .game-result.show {
-            display: block;
-        }
-
-        .game-result.correct {
-            background: #d4edda;
-            color: #155724;
-            border: 2px solid #28a745;
-        }
-
-        .game-result.incorrect {
-            background: #f8d7da;
-            color: #721c24;
-            border: 2px solid #dc3545;
-        }
-
-        .stats {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 15px;
-            margin-bottom: 20px;
-        }
-
-        .stat-box {
-            background: #f8f9fa;
-            padding: 15px;
-            border-radius: 6px;
-            border: 2px solid #ddd;
-        }
-
-        .stat-label {
-            color: #666;
-            font-size: 0.9em;
-        }
-
-        .stat-value {
-            font-size: 1.8em;
-            font-weight: bold;
-            color: #667eea;
-        }
-
-        .shift-slider {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            margin: 15px 0;
-        }
-
-        .shift-slider input[type="range"] {
-            flex: 1;
-            height: 8px;
-            cursor: pointer;
-        }
-
-        .shift-value {
-            font-size: 1.3em;
-            font-weight: bold;
-            color: #667eea;
-            min-width: 60px;
-            text-align: center;
-        }
-
-        /* 힌트 시스템 스타일 */
-        .hint-section {
-            background: #fff8e1;
-            border: 2px solid #ffc107;
-            border-radius: 8px;
-            padding: 15px;
-            margin-bottom: 20px;
-        }
-
-        .hint-title {
-            color: #f57f17;
-            font-weight: bold;
-            margin-bottom: 10px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .hint-content {
-            color: #333;
-            background: white;
-            padding: 12px;
-            border-radius: 6px;
-            margin-top: 10px;
-        }
-
-        .hint-box {
-            background: #e3f2fd;
-            border-left: 4px solid #2196f3;
-            padding: 10px;
-            margin-bottom: 8px;
-            border-radius: 4px;
-            font-size: 0.95em;
-        }
-
-        .hint-button {
-            background: #ffc107;
-            color: #333;
-            padding: 8px 16px;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            font-weight: bold;
-            transition: all 0.3s ease;
-            margin-right: 8px;
-            margin-top: 10px;
-        }
-
-        .hint-button:hover {
-            background: #ffb300;
-            transform: translateY(-2px);
-        }
-
-        .hint-button:disabled {
-            background: #ccc;
-            cursor: not-allowed;
-            transform: none;
-        }
-
-        .hint-used {
-            display: inline-block;
-            background: #e0e0e0;
-            color: #666;
-            padding: 4px 8px;
-            border-radius: 4px;
-            font-size: 0.85em;
-            margin-left: 10px;
-        }
-
-        .guide-box {
-            background: #e8f5e9;
-            border: 2px solid #4caf50;
-            border-radius: 8px;
-            padding: 15px;
-            margin-bottom: 20px;
-        }
-
-        .guide-title {
-            color: #2e7d32;
-            font-weight: bold;
-            margin-bottom: 10px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .guide-content {
-            color: #333;
-            font-size: 0.95em;
-            line-height: 1.6;
-        }
-
-        .guide-step {
-            margin-bottom: 10px;
-            padding-left: 20px;
-        }
-
-        .guide-step::before {
-            content: "→";
-            margin-left: -15px;
-            margin-right: 10px;
-            color: #4caf50;
-            font-weight: bold;
-        }
-
-        .shift-reference {
-            background: #f5f5f5;
-            padding: 12px;
-            border-radius: 6px;
-            margin-top: 10px;
-            font-family: 'Courier New', monospace;
-            font-size: 0.9em;
-            text-align: center;
-        }
-
-        .hint-counter {
-            display: inline-block;
-            background: #667eea;
-            color: white;
-            padding: 4px 8px;
-            border-radius: 4px;
-            font-size: 0.85em;
-            margin-left: 10px;
-        }
-
-        /* 알파벳 참고 표 스타일 */
-        .alphabet-reference {
-            background: #f0f7ff;
-            border: 2px solid #667eea;
-            border-radius: 8px;
-            padding: 15px;
-            margin-bottom: 20px;
-        }
-
-        .alphabet-reference h3 {
-            color: #667eea;
-            font-size: 1.1em;
-            margin-bottom: 12px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .alphabet-row {
-            display: flex;
-            gap: 4px;
-            margin-bottom: 8px;
-            flex-wrap: wrap;
-            justify-content: center;
-        }
-
-        .alphabet-letter {
-            width: 28px;
-            height: 28px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background: white;
-            border: 2px solid #667eea;
-            border-radius: 4px;
-            font-weight: bold;
-            color: #667eea;
-            font-size: 0.9em;
-            font-family: 'Courier New', monospace;
-        }
-
-        .alphabet-letter.highlighted {
-            background: #667eea;
-            color: white;
-        }
-
-        .alphabet-label {
-            text-align: center;
-            font-size: 0.75em;
-            color: #666;
-            margin-top: 2px;
-            min-width: 28px;
-        }
-
-        .alphabet-wrapper {
-            display: flex;
-            justify-content: center;
-            gap: 0;
-            flex-wrap: wrap;
-        }
-
-        .alphabet-item {
-            text-align: center;
-            margin-right: 2px;
-        }
-
-        .toggle-alphabet-btn {
-            background: #667eea;
-            color: white;
-            padding: 8px 16px;
-            border: none;
-            border-radius: 6px;
-            cursor: pointer;
-            font-weight: bold;
-            margin-bottom: 10px;
-            width: 100%;
-        }
-
-        .toggle-alphabet-btn:hover {
-            background: #764ba2;
-        }
-
-        .toggle-alphabet-btn.expanded::after {
-            content: " ▲";
-        }
-
-        .toggle-alphabet-btn:not(.expanded)::after {
-            content: " ▼";
-        }
-
-        .alphabet-content {
-            display: none;
-        }
-
-        .alphabet-content.expanded {
-            display: block;
-        }
-
-        @media (max-width: 768px) {
-            header h1 {
-                font-size: 1.8em;
-            }
-
-            .content {
-                padding: 20px;
-            }
-
-            .stats {
-                grid-template-columns: 1fr;
-            }
-
-            .tabs {
-                flex-direction: column;
-            }
-
-            .tab-btn {
-                width: 100%;
-            }
-
-            .encrypted-text {
-                font-size: 1.2em;
-            }
-
-            .alphabet-letter {
-                width: 24px;
-                height: 24px;
-                font-size: 0.8em;
-            }
-
-            .alphabet-item {
-                margin-right: 1px;
-            }
-        }
-    
-
-							</style>
-                        </head>
-                        <body>
-                            <!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="ko">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>카이사르 암호 - 학습 & 게임</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            min-height: 100vh;
-            padding: 20px;
-        }
-
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        header {
-            text-align: center;
-            color: white;
-            margin-bottom: 30px;
-        }
-
-        header h1 {
-            font-size: 2.5em;
-            margin-bottom: 10px;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
-        }
-
-        header p {
-            font-size: 1.1em;
-            opacity: 0.9;
-        }
-
-        .tabs {
-            display: flex;
-            gap: 10px;
-            margin-bottom: 20px;
-            flex-wrap: wrap;
-        }
-
-        .tab-btn {
-            padding: 12px 24px;
-            background: white;
-            border: none;
-            border-radius: 8px;
-            cursor: pointer;
-            font-size: 1em;
-            font-weight: bold;
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-        }
-
-        .tab-btn.active {
-            background: #667eea;
-            color: white;
-            transform: translateY(-2px);
-            box-shadow: 0 6px 12px rgba(0,0,0,0.2);
-        }
-
-        .tab-btn:hover {
-            transform: translateY(-2px);
-        }
-
-        .content {
-            background: white;
-            border-radius: 12px;
-            padding: 30px;
-            box-shadow: 0 8px 32px rgba(0,0,0,0.1);
-            display: none;
-            animation: fadeIn 0.3s ease;
-        }
-
-        .content.active {
-            display: block;
-        }
-
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-                transform: translateY(10px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .concept-section {
-            margin-bottom: 30px;
-        }
-
-        .concept-section h2 {
-            color: #667eea;
-            margin-bottom: 15px;
-            font-size: 1.8em;
-            border-bottom: 3px solid #667eea;
-            padding-bottom: 10px;
-        }
-
-        .concept-section p {
-            line-height: 1.8;
-            color: #333;
-            margin-bottom: 15px;
-        }
-
-        .cipher-table {
-            width: 100%;
-            border-collapse: collapse;
-            margin: 20px 0;
-            background: #f8f9fa;
-        }
-
-        .cipher-table td {
-            border: 2px solid #ddd;
-            padding: 10px;
-            text-align: center;
-            font-weight: bold;
-        }
-
-        .cipher-table tr:nth-child(odd) td {
-            background: #f8f9fa;
-        }
-
-        .cipher-table tr:nth-child(even) td {
-            background: #e9ecef;
-        }
-
-        .example-box {
-            background: #e7f3ff;
-            border-left: 4px solid #667eea;
-            padding: 15px;
-            margin: 15px 0;
-            border-radius: 4px;
-        }
-
-        .example-box strong {
-            color: #667eea;
-        }
-
-        .practice-section {
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
-        }
-
-        .input-group {
-            display: flex;
-            flex-direction: column;
-            gap: 8px;
-        }
-
-        label {
-            font-weight: bold;
-            color: #333;
-            font-size: 1.05em;
-        }
-
-        input[type="text"],
-        input[type="number"],
-        textarea {
-            padding: 12px;
-            border: 2px solid #ddd;
-            border-radius: 6px;
-            font-size: 1em;
-            transition: border-color 0.3s ease;
-            font-family: 'Courier New', monospace;
-        }
-
-        input[type="text"]:focus,
-        input[type="number"]:focus,
-        textarea:focus {
-            outline: none;
-            border-color: #667eea;
-            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
-        }
-
-        textarea {
-            min-height: 100px;
-            resize: vertical;
-        }
-
-        .button-group {
-            display: flex;
-            gap: 10px;
-            flex-wrap: wrap;
-        }
-
-        button {
-            padding: 12px 24px;
-            background: #667eea;
-            color: white;
-            border: none;
-            border-radius: 6px;
-            font-size: 1em;
-            font-weight: bold;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        button:hover {
-            background: #764ba2;
-            transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
-        }
-
-        button:active {
-            transform: translateY(0);
-        }
-
-        button:disabled {
-            background: #ccc;
-            cursor: not-allowed;
-            transform: none;
-        }
-
-        .result-box {
-            background: #f0f7ff;
-            border: 2px solid #667eea;
-            padding: 15px;
-            border-radius: 6px;
-            margin-top: 15px;
-            display: none;
-        }
-
-        .result-box.show {
-            display: block;
-            animation: slideDown 0.3s ease;
-        }
-
-        @keyframes slideDown {
-            from {
-                opacity: 0;
-                max-height: 0;
-            }
-            to {
-                opacity: 1;
-                max-height: 500px;
-            }
-        }
-
-        .result-title {
-            font-weight: bold;
-            color: #667eea;
-            margin-bottom: 10px;
-        }
-
-        .game-section {
-            text-align: center;
-        }
-
-        .game-info {
-            background: #fff3cd;
-            border-left: 4px solid #ffc107;
-            padding: 15px;
-            margin-bottom: 20px;
-            border-radius: 4px;
-            text-align: left;
-        }
-
-        .game-controls {
-            display: flex;
-            gap: 10px;
-            justify-content: center;
-            margin-bottom: 20px;
-            flex-wrap: wrap;
-        }
-
-        .difficulty-btn {
-            padding: 10px 20px;
-            background: #e9ecef;
-            color: #333;
-            border: 2px solid #ddd;
-            border-radius: 6px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        .difficulty-btn.active {
-            background: #667eea;
-            color: white;
-            border-color: #667eea;
-        }
-
-        .game-display {
-            background: #f8f9fa;
-            padding: 30px;
-            border-radius: 8px;
-            margin-bottom: 20px;
-            border: 2px solid #ddd;
-        }
-
-        .encrypted-text {
-            font-size: 1.5em;
-            font-weight: bold;
-            color: #667eea;
-            word-break: break-all;
-            margin-bottom: 15px;
-            font-family: 'Courier New', monospace;
-            letter-spacing: 3px;
-        }
-
-        .timer {
-            font-size: 2em;
-            color: #dc3545;
-            font-weight: bold;
-            margin-bottom: 15px;
-        }
-
-        .timer.warning {
-            animation: blink 0.5s infinite;
-        }
-
-        @keyframes blink {
-            0%, 50% { opacity: 1; }
-            51%, 100% { opacity: 0.5; }
-        }
-
-        .guess-input {
-            font-size: 1.2em;
-            padding: 15px;
-            margin-bottom: 15px;
-        }
-
-        .game-result {
-            font-size: 1.2em;
-            font-weight: bold;
-            padding: 15px;
-            border-radius: 6px;
-            margin-bottom: 15px;
-            display: none;
-        }
-
-        .game-result.show {
-            display: block;
-        }
-
-        .game-result.correct {
-            background: #d4edda;
-            color: #155724;
-            border: 2px solid #28a745;
-        }
-
-        .game-result.incorrect {
-            background: #f8d7da;
-            color: #721c24;
-            border: 2px solid #dc3545;
-        }
-
-        .stats {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 15px;
-            margin-bottom: 20px;
-        }
-
-        .stat-box {
-            background: #f8f9fa;
-            padding: 15px;
-            border-radius: 6px;
-            border: 2px solid #ddd;
-        }
-
-        .stat-label {
-            color: #666;
-            font-size: 0.9em;
-        }
-
-        .stat-value {
-            font-size: 1.8em;
-            font-weight: bold;
-            color: #667eea;
-        }
-
-        .shift-slider {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            margin: 15px 0;
-        }
-
-        .shift-slider input[type="range"] {
-            flex: 1;
-            height: 8px;
-            cursor: pointer;
-        }
-
-        .shift-value {
-            font-size: 1.3em;
-            font-weight: bold;
-            color: #667eea;
-            min-width: 60px;
-            text-align: center;
-        }
-
-        /* 힌트 시스템 스타일 */
-        .hint-section {
-            background: #fff8e1;
-            border: 2px solid #ffc107;
-            border-radius: 8px;
-            padding: 15px;
-            margin-bottom: 20px;
-        }
-
-        .hint-title {
-            color: #f57f17;
-            font-weight: bold;
-            margin-bottom: 10px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .hint-content {
-            color: #333;
-            background: white;
-            padding: 12px;
-            border-radius: 6px;
-            margin-top: 10px;
-        }
-
-        .hint-box {
-            background: #e3f2fd;
-            border-left: 4px solid #2196f3;
-            padding: 10px;
-            margin-bottom: 8px;
-            border-radius: 4px;
-            font-size: 0.95em;
-        }
-
-        .hint-button {
-            background: #ffc107;
-            color: #333;
-            padding: 8px 16px;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            font-weight: bold;
-            transition: all 0.3s ease;
-            margin-right: 8px;
-            margin-top: 10px;
-        }
-
-        .hint-button:hover {
-            background: #ffb300;
-            transform: translateY(-2px);
-        }
-
-        .hint-button:disabled {
-            background: #ccc;
-            cursor: not-allowed;
-            transform: none;
-        }
-
-        .hint-used {
-            display: inline-block;
-            background: #e0e0e0;
-            color: #666;
-            padding: 4px 8px;
-            border-radius: 4px;
-            font-size: 0.85em;
-            margin-left: 10px;
-        }
-
-        .guide-box {
-            background: #e8f5e9;
-            border: 2px solid #4caf50;
-            border-radius: 8px;
-            padding: 15px;
-            margin-bottom: 20px;
-        }
-
-        .guide-title {
-            color: #2e7d32;
-            font-weight: bold;
-            margin-bottom: 10px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .guide-content {
-            color: #333;
-            font-size: 0.95em;
-            line-height: 1.6;
-        }
-
-        .guide-step {
-            margin-bottom: 10px;
-            padding-left: 20px;
-        }
-
-        .guide-step::before {
-            content: "→";
-            margin-left: -15px;
-            margin-right: 10px;
-            color: #4caf50;
-            font-weight: bold;
-        }
-
-        .shift-reference {
-            background: #f5f5f5;
-            padding: 12px;
-            border-radius: 6px;
-            margin-top: 10px;
-            font-family: 'Courier New', monospace;
-            font-size: 0.9em;
-            text-align: center;
-        }
-
-        .hint-counter {
-            display: inline-block;
-            background: #667eea;
-            color: white;
-            padding: 4px 8px;
-            border-radius: 4px;
-            font-size: 0.85em;
-            margin-left: 10px;
-        }
-
-        /* 알파벳 참고 표 스타일 */
-        .alphabet-reference {
-            background: #f0f7ff;
-            border: 2px solid #667eea;
-            border-radius: 8px;
-            padding: 15px;
-            margin-bottom: 20px;
-        }
-
-        .alphabet-reference h3 {
-            color: #667eea;
-            font-size: 1.1em;
-            margin-bottom: 12px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .alphabet-row {
-            display: flex;
-            gap: 4px;
-            margin-bottom: 8px;
-            flex-wrap: wrap;
-            justify-content: center;
-        }
-
-        .alphabet-letter {
-            width: 28px;
-            height: 28px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background: white;
-            border: 2px solid #667eea;
-            border-radius: 4px;
-            font-weight: bold;
-            color: #667eea;
-            font-size: 0.9em;
-            font-family: 'Courier New', monospace;
-        }
-
-        .alphabet-letter.highlighted {
-            background: #667eea;
-            color: white;
-        }
-
-        .alphabet-label {
-            text-align: center;
-            font-size: 0.75em;
-            color: #666;
-            margin-top: 2px;
-            min-width: 28px;
-        }
-
-        .alphabet-wrapper {
-            display: flex;
-            justify-content: center;
-            gap: 0;
-            flex-wrap: wrap;
-        }
-
-        .alphabet-item {
-            text-align: center;
-            margin-right: 2px;
-        }
-
-        .toggle-alphabet-btn {
-            background: #667eea;
-            color: white;
-            padding: 8px 16px;
-            border: none;
-            border-radius: 6px;
-            cursor: pointer;
-            font-weight: bold;
-            margin-bottom: 10px;
-            width: 100%;
-        }
-
-        .toggle-alphabet-btn:hover {
-            background: #764ba2;
-        }
-
-        .toggle-alphabet-btn.expanded::after {
-            content: " ▲";
-        }
-
-        .toggle-alphabet-btn:not(.expanded)::after {
-            content: " ▼";
-        }
-
-        .alphabet-content {
-            display: none;
-        }
-
-        .alphabet-content.expanded {
-            display: block;
-        }
-
-        @media (max-width: 768px) {
-            header h1 {
-                font-size: 1.8em;
-            }
-
-            .content {
-                padding: 20px;
-            }
-
-            .stats {
-                grid-template-columns: 1fr;
-            }
-
-            .tabs {
-                flex-direction: column;
-            }
-
-            .tab-btn {
-                width: 100%;
-            }
-
-            .encrypted-text {
-                font-size: 1.2em;
-            }
-
-            .alphabet-letter {
-                width: 24px;
-                height: 24px;
-                font-size: 0.8em;
-            }
-
-            .alphabet-item {
-                margin-right: 1px;
-            }
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>대칭키 암호화 실습 — 카이사르 & 레일펜스</title>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg: #F4F2EB;
+    --card: #FFFFFF;
+    --border: rgba(0,0,0,0.1);
+    --border-strong: rgba(0,0,0,0.2);
+    --text: #1A1A18;
+    --muted: #6B6B65;
+    --mono: 'IBM Plex Mono', monospace;
+    --sans: 'Noto Sans KR', sans-serif;
+
+    --blue: #185FA5;
+    --blue-light: #E6F1FB;
+    --blue-text: #0C447C;
+    --amber: #BA7517;
+    --amber-light: #FAEEDA;
+    --amber-text: #854F0B;
+    --green: #3B6D11;
+    --green-light: #EAF3DE;
+    --green-text: #27500A;
+    --red: #A32D2D;
+    --red-light: #FCEBEB;
+    --red-text: #791F1F;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: var(--sans);
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+    font-size: 15px;
+    line-height: 1.6;
+  }
+
+  /* HEADER */
+  header {
+    background: var(--text);
+    color: var(--bg);
+    padding: 2rem 1.5rem 1.5rem;
+    text-align: center;
+  }
+  header .eyebrow {
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    opacity: 0.6;
+    margin-bottom: 0.5rem;
+  }
+  header h1 {
+    font-size: clamp(22px, 5vw, 36px);
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    margin-bottom: 0.4rem;
+  }
+  header p {
+    font-size: 14px;
+    opacity: 0.65;
+    max-width: 480px;
+    margin: 0 auto;
+  }
+
+  /* NAV */
+  .nav-wrap {
+    background: var(--text);
+    padding: 0 1.5rem 1rem;
+    display: flex;
+    justify-content: center;
+  }
+  .nav {
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  .nav-btn {
+    padding: 7px 18px;
+    border-radius: 999px;
+    border: 1px solid rgba(255,255,255,0.2);
+    background: transparent;
+    cursor: pointer;
+    font-family: var(--sans);
+    font-size: 13px;
+    font-weight: 500;
+    color: rgba(255,255,255,0.65);
+    transition: all 0.15s;
+  }
+  .nav-btn.active {
+    background: var(--bg);
+    color: var(--text);
+    border-color: var(--bg);
+  }
+  .nav-btn:hover:not(.active) {
+    background: rgba(255,255,255,0.1);
+    color: #fff;
+  }
+
+  /* LAYOUT */
+  .site { max-width: 900px; margin: 0 auto; padding: 2rem 1.25rem 4rem; }
+  .section { display: none; animation: fadeIn 0.2s ease; }
+  .section.active { display: block; }
+  @keyframes fadeIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+
+  /* CARDS */
+  .card {
+    background: var(--card);
+    border: 0.5px solid var(--border);
+    border-radius: 12px;
+    padding: 1.5rem;
+    margin-bottom: 1rem;
+  }
+  .card-title {
+    font-size: 15px;
+    font-weight: 700;
+    margin-bottom: 0.75rem;
+    color: var(--text);
+  }
+
+  /* BADGES */
+  .badge {
+    display: inline-block;
+    padding: 3px 12px;
+    border-radius: 999px;
+    font-size: 12px;
+    font-weight: 500;
+    margin-bottom: 0.75rem;
+    font-family: var(--mono);
+    letter-spacing: 0.02em;
+  }
+  .badge-blue  { background: var(--blue-light);  color: var(--blue-text); }
+  .badge-amber { background: var(--amber-light); color: var(--amber-text); }
+  .badge-green { background: var(--green-light); color: var(--green-text); }
+  .badge-red   { background: var(--red-light);   color: var(--red-text); }
+
+  /* TWO COL */
+  .two-col {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+  }
+  @media (max-width: 640px) { .two-col { grid-template-columns: 1fr; } }
+
+  /* INPUTS */
+  label { font-size: 12px; color: var(--muted); display: block; margin-bottom: 5px; font-family: var(--mono); }
+  textarea, input[type=text] {
+    width: 100%;
+    border: 0.5px solid var(--border-strong);
+    border-radius: 8px;
+    padding: 10px 12px;
+    font-family: var(--mono);
+    font-size: 13px;
+    background: #FAFAF8;
+    color: var(--text);
+    resize: vertical;
+    outline: none;
+    transition: border-color 0.15s;
+  }
+  textarea:focus, input[type=text]:focus { border-color: var(--blue); }
+
+  /* RANGE */
+  .range-row { display: flex; align-items: center; gap: 10px; margin: 0.6rem 0; }
+  .range-row input[type=range] { flex: 1; accent-color: var(--text); }
+  .range-val {
+    font-size: 20px;
+    font-weight: 700;
+    min-width: 36px;
+    text-align: center;
+    font-family: var(--mono);
+  }
+
+  /* BUTTONS */
+  .btn {
+    padding: 9px 20px;
+    border-radius: 8px;
+    border: 0.5px solid var(--border-strong);
+    cursor: pointer;
+    font-size: 13px;
+    font-weight: 500;
+    font-family: var(--sans);
+    transition: all 0.15s;
+    background: var(--card);
+    color: var(--text);
+  }
+  .btn:hover { background: #F0EEE7; }
+  .btn:active { transform: scale(0.98); }
+  .btn-primary { background: var(--text); color: var(--bg); border-color: var(--text); }
+  .btn-primary:hover { opacity: 0.85; background: var(--text); }
+
+  /* RESULT BOX */
+  .result-box {
+    background: #F8F6EF;
+    border: 0.5px solid var(--border-strong);
+    border-radius: 8px;
+    padding: 12px;
+    font-family: var(--mono);
+    font-size: 14px;
+    min-height: 48px;
+    letter-spacing: 0.05em;
+    word-break: break-all;
+    color: var(--text);
+    margin-top: 4px;
+  }
+
+  /* FLOW DIAGRAM */
+  .flow {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    margin: 1rem 0;
+    flex-wrap: wrap;
+  }
+  .flow-step {
+    flex: 1;
+    min-width: 80px;
+    text-align: center;
+    padding: 10px 4px;
+    border-radius: 8px;
+    font-size: 12px;
+    font-weight: 500;
+    line-height: 1.4;
+  }
+  .flow-arrow { color: var(--muted); font-size: 20px; flex-shrink: 0; }
+  .flow-plain  { background: var(--blue-light);  color: var(--blue-text); }
+  .flow-key    { background: var(--amber-light); color: var(--amber-text); }
+  .flow-cipher { background: var(--green-light); color: var(--green-text); }
+
+  /* CONCEPT BOX */
+  .concept {
+    border-left: 3px solid #D3D1C7;
+    padding: 0.5rem 1rem;
+    margin: 1rem 0;
+    color: var(--muted);
+    font-size: 14px;
+    line-height: 1.7;
+    background: #FAFAF8;
+    border-radius: 0 8px 8px 0;
+  }
+
+  /* ALPHA VIZ */
+  .alpha-grid {
+    font-family: var(--mono);
+    font-size: 12px;
+    overflow-x: auto;
+    white-space: nowrap;
+    padding: 8px 0;
+  }
+  .alpha-grid .row { display: flex; gap: 2px; margin-bottom: 4px; }
+  .alpha-grid span { width: 22px; text-align: center; display: inline-block; }
+  .alpha-orig { color: var(--muted); }
+  .alpha-enc  { color: var(--amber); font-weight: 500; }
+
+  /* FREQ CHART */
+  .freq-chart-wrap {
+    display: flex;
+    align-items: flex-end;
+    gap: 3px;
+    height: 64px;
+    overflow-x: auto;
+    padding-bottom: 2px;
+    margin-top: 0.75rem;
+  }
+  .freq-bar-col {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2px;
+    flex: 1;
+    min-width: 14px;
+  }
+  .freq-count { font-size: 9px; color: var(--muted); height: 12px; line-height: 12px; }
+  .freq-bar   { width: 100%; border-radius: 2px 2px 0 0; min-height: 2px; }
+  .freq-label { font-size: 9px; color: var(--muted); }
+
+  /* RAIL VIZ */
+  .rail-visual {
+    font-family: var(--mono);
+    font-size: 13px;
+    overflow-x: auto;
+    padding: 12px;
+    background: #F8F6EF;
+    border-radius: 8px;
+    margin-top: 0.75rem;
+    line-height: 2.2;
+    border: 0.5px solid var(--border);
+  }
+  .rail-char { display: inline-block; width: 22px; text-align: center; }
+  .rail-r0 { color: var(--blue);  font-weight: 700; }
+  .rail-r1 { color: var(--amber); font-weight: 700; }
+  .rail-r2 { color: var(--green); font-weight: 700; }
+  .rail-r3 { color: var(--red);   font-weight: 700; }
+  .rail-dot { color: #D3D1C7; }
+
+  /* GAME */
+  .game-header {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    align-items: center;
+    margin-bottom: 1rem;
+  }
+  .game-stat {
+    background: var(--card);
+    border: 0.5px solid var(--border-strong);
+    border-radius: 8px;
+    padding: 8px 16px;
+    font-size: 12px;
+    color: var(--muted);
+    font-family: var(--mono);
+  }
+  .game-stat span {
+    display: block;
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--text);
+    margin-top: 2px;
+  }
+  .game-mission {
+    font-size: 14px;
+    line-height: 1.8;
+    color: var(--muted);
+    margin-bottom: 0.75rem;
+  }
+  .cipher-display {
+    background: #F0F6FD;
+    border: 1.5px solid #B5D4F4;
+    border-radius: 10px;
+    padding: 18px;
+    font-family: var(--mono);
+    font-size: clamp(16px, 4vw, 24px);
+    letter-spacing: 0.12em;
+    text-align: center;
+    margin: 1rem 0;
+    font-weight: 700;
+    color: var(--blue-text);
+    word-break: break-all;
+  }
+  .hint-box {
+    border: 0.5px solid var(--border);
+    border-radius: 8px;
+    padding: 10px 14px;
+    font-size: 13px;
+    margin-bottom: 0.75rem;
+    background: var(--amber-light);
+    color: var(--amber-text);
+    font-family: var(--mono);
+  }
+  .feedback {
+    text-align: center;
+    padding: 12px;
+    border-radius: 8px;
+    font-weight: 700;
+    font-size: 15px;
+    margin-top: 0.75rem;
+  }
+  .feedback.correct { background: var(--green-light); color: var(--green-text); }
+  .feedback.wrong   { background: var(--red-light);   color: var(--red-text); }
+
+  .progress-bar-wrap {
+    background: rgba(0,0,0,0.08);
+    border-radius: 999px;
+    height: 6px;
+    overflow: hidden;
+    margin: 0.5rem 0 1rem;
+  }
+  .progress-bar {
+    height: 6px;
+    background: var(--text);
+    border-radius: 999px;
+    transition: width 0.5s linear;
+  }
+
+  .trophy { font-size: 52px; text-align: center; padding: 1rem 0 0.5rem; }
+
+  /* INTRO COMPARE TABLE */
+  .compare-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  .compare-table th, .compare-table td {
+    text-align: left;
+    padding: 9px 12px;
+    border-bottom: 0.5px solid var(--border);
+  }
+  .compare-table th { color: var(--muted); font-weight: 500; }
+  .compare-table td { color: var(--text); }
+
+  /* CLICK CARD */
+  .click-card { cursor: pointer; transition: transform 0.12s, box-shadow 0.12s; }
+  .click-card:hover { transform: translateY(-2px); box-shadow: 0 4px 16px rgba(0,0,0,0.06); }
+
+  .input-row { display: flex; gap: 8px; margin-top: 0.75rem; }
+  .input-row input { flex: 1; }
+
+  .legend-row { display: flex; gap: 16px; margin-top: 8px; flex-wrap: wrap; }
+  .legend-item { font-size: 12px; font-family: var(--mono); display: flex; align-items: center; gap: 4px; }
+  .legend-dot { width: 10px; height: 10px; border-radius: 2px; }
+
+  /* GAME TOOLS */
+  .tool-panel {
+    border: 0.5px solid var(--border-strong);
+    border-radius: 10px;
+    overflow: hidden;
+    margin-top: 1rem;
+  }
+  .tool-panel-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 14px;
+    background: #F8F6EF;
+    border-bottom: 0.5px solid var(--border);
+    cursor: pointer;
+    user-select: none;
+  }
+  .tool-panel-header span { font-size: 13px; font-weight: 500; color: var(--muted); }
+  .tool-panel-header .toggle-icon { font-size: 11px; color: var(--muted); }
+  .tool-panel-body { padding: 14px; background: var(--card); display: none; }
+  .tool-panel-body.open { display: block; }
+
+  /* Caesar tool */
+  .alpha-table { width: 100%; border-collapse: collapse; font-family: var(--mono); font-size: 12px; }
+  .alpha-table td {
+    text-align: center; padding: 5px 2px;
+    border: 0.5px solid var(--border); min-width: 22px;
+  }
+  .alpha-table .row-orig { color: var(--muted); background: #FAFAF8; }
+  .alpha-table .row-enc  { color: var(--amber); font-weight: 700; background: var(--amber-light); }
+  .game-shift-row { display: flex; align-items: center; gap: 8px; margin-bottom: 10px; }
+  .game-shift-row label { font-size: 12px; color: var(--muted); white-space: nowrap; margin: 0; }
+  .game-shift-row input[type=range] { flex: 1; accent-color: var(--amber); }
+  .game-shift-val { font-family: var(--mono); font-size: 16px; font-weight: 700; min-width: 28px; text-align: center; color: var(--amber); }
+
+  /* Rail tool */
+  .rail-grid-wrap { font-family: var(--mono); font-size: 12px; overflow-x: auto; }
+  .rail-grid-row { display: flex; margin-bottom: 2px; align-items: center; gap: 4px; }
+  .rail-grid-label { font-size: 11px; color: var(--muted); min-width: 40px; }
+  .rail-cell {
+    width: 24px; height: 24px; border: 0.5px solid var(--border);
+    border-radius: 4px; display: flex; align-items: center; justify-content: center;
+    font-size: 12px; font-weight: 700; background: #FAFAF8;
+  }
+  .rail-cell.filled-0 { background: var(--blue-light);  color: var(--blue-text); border-color: #B5D4F4; }
+  .rail-cell.filled-1 { background: var(--amber-light); color: var(--amber-text); border-color: #FAC775; }
+  .rail-cell.filled-2 { background: var(--green-light); color: var(--green-text); border-color: #C0DD97; }
+  .rail-cell.filled-3 { background: var(--red-light);   color: var(--red-text);   border-color: #F7C1C1; }
+  .rail-cell.empty { color: transparent; }
+
+  /* Scratch pad */
+  .scratch-pad {
+    width: 100%; border: 0.5px solid var(--border-strong); border-radius: 8px;
+    padding: 8px 10px; font-family: var(--mono); font-size: 13px;
+    background: #FDFCF8; color: var(--text); resize: vertical;
+    min-height: 60px; outline: none;
+  }
+  .scratch-pad:focus { border-color: var(--blue); }
+  .tool-tabs { display: flex; gap: 4px; margin-bottom: 10px; }
+  .tool-tab {
+    padding: 5px 14px; border-radius: 999px; border: 0.5px solid var(--border-strong);
+    font-size: 12px; cursor: pointer; background: var(--card); color: var(--muted);
+    font-family: var(--sans); transition: all 0.12s;
+  }
+  .tool-tab.active { background: var(--text); color: var(--card); border-color: var(--text); }
+</style>
 </head>
 <body>
-    <div class="container">
-        <header>
-            <h1>🔐 카이사르 암호</h1>
-            <p>고대 로마의 전략가 율리우스 카이사르가 사용한 암호화 기법을 배워보세요!</p>
-        </header>
 
-        <div class="tabs">
-            <button class="tab-btn active" onclick="switchTab('concept')">📚 개념</button>
-            <button class="tab-btn" onclick="switchTab('practice')">✏️ 실습</button>
-            <button class="tab-btn" onclick="switchTab('game')">🎮 게임</button>
-        </div>
+<header>
+  <div class="eyebrow">대칭키 암호화 실습 · 고등학교 정보 수업</div>
+  <h1>암호의 세계로 오신 것을 환영합니다</h1>
+  <p>카이사르 암호(치환형)와 레일펜스 암호(전치형)를 직접 체험하고, 첩보 미션으로 실력을 확인하세요.</p>
+</header>
 
-        <!-- 개념 탭 -->
-        <div id="concept" class="content active">
-            <div class="concept-section">
-                <h2>카이사르 암호란?</h2>
-                <p>카이사르 암호(Caesar Cipher)는 가장 간단한 암호 중 하나로, 알파벳을 일정한 칸 수만큼 밀어서 암호화합니다. 예를 들어, 시프트 값이 3이면 'A'는 'D'로, 'B'는 'E'로 변환됩니다.</p>
-            </div>
+<div class="nav-wrap">
+  <nav class="nav">
+    <button class="nav-btn active" onclick="showSection('intro')">📖 개요</button>
+    <button class="nav-btn" onclick="showSection('caesar')">🔡 카이사르 암호</button>
+    <button class="nav-btn" onclick="showSection('railfence')">🔀 레일펜스 암호</button>
+    <button class="nav-btn" onclick="showSection('game')">🕵️ 첩보 미션</button>
+  </nav>
+</div>
 
-            <div class="concept-section">
-                <h2>암호화 예시</h2>
-                <div class="example-box">
-                    <strong>원문:</strong> HELLO<br>
-                    <strong>시프트 값:</strong> 3<br>
-                    <strong>암호문:</strong> KHOOR
-                </div>
-                <p>
-                    H → K (3칸 앞으로)<br>
-                    E → H (3칸 앞으로)<br>
-                    L → O (3칸 앞으로)<br>
-                    L → O (3칸 앞으로)<br>
-                    O → R (3칸 앞으로)
-                </p>
-            </div>
+<div class="site">
 
-            <div class="concept-section">
-                <h2>알파벳 이동 표</h2>
-                <table class="cipher-table">
-                    <tr>
-                        <td>원문</td>
-                        <td>A</td><td>B</td><td>C</td><td>D</td><td>E</td><td>F</td><td>G</td><td>H</td><td>I</td><td>J</td><td>K</td><td>L</td><td>M</td>
-                    </tr>
-                    <tr>
-                        <td>시프트 3</td>
-                        <td>D</td><td>E</td><td>F</td><td>G</td><td>H</td><td>I</td><td>J</td><td>K</td><td>L</td><td>M</td><td>N</td><td>O</td><td>P</td>
-                    </tr>
-                    <tr>
-                        <td>원문</td>
-                        <td>N</td><td>O</td><td>P</td><td>Q</td><td>R</td><td>S</td><td>T</td><td>U</td><td>V</td><td>W</td><td>X</td><td>Y</td><td>Z</td>
-                    </tr>
-                    <tr>
-                        <td>시프트 3</td>
-                        <td>Q</td><td>R</td><td>S</td><td>T</td><td>U</td><td>V</td><td>W</td><td>X</td><td>Y</td><td>Z</td><td>A</td><td>B</td><td>C</td>
-                    </tr>
-                </table>
-            </div>
+  <!-- ===================== INTRO ===================== -->
+  <div id="intro" class="section active">
 
-            <div class="concept-section">
-                <h2>복호화</h2>
-                <p>암호화된 문자를 원래대로 되돌리려면 반대 방향으로 이동하면 됩니다. 예를 들어, 시프트 값이 3이었다면 3칸 뒤로 가면 원문을 얻을 수 있습니다.</p>
-                <div class="example-box">
-                    <strong>암호문:</strong> KHOOR<br>
-                    <strong>시프트 값:</strong> 3<br>
-                    <strong>복호화:</strong> HELLO (3칸 뒤로)
-                </div>
-            </div>
-
-            <div class="concept-section">
-                <h2>특징</h2>
-                <ul style="margin-left: 20px; line-height: 1.8;">
-                    <li>✓ 구현이 매우 간단합니다</li>
-                    <li>✓ 이해하기 쉽습니다</li>
-                    <li>✗ 보안성이 매우 낮습니다 (26가지 경우의 수만 존재)</li>
-                    <li>✗ 쉽게 복호화될 수 있습니다</li>
-                </ul>
-            </div>
-        </div>
-
-        <!-- 실습 탭 -->
-        <div id="practice" class="content">
-            <div class="concept-section">
-                <h2>🔒 암호화</h2>
-                <div class="practice-section">
-                    <div class="input-group">
-                        <label for="plaintext">원문을 입력하세요:</label>
-                        <textarea id="plaintext" placeholder="예: HELLO WORLD"></textarea>
-                    </div>
-
-                    <div class="input-group">
-                        <label for="encryptShift">시프트 값 (1-25):</label>
-                        <div class="shift-slider">
-                            <input type="range" id="encryptShift" min="1" max="25" value="3" onchange="updateEncryptShiftDisplay()">
-                            <span class="shift-value" id="encryptShiftDisplay">3</span>
-                        </div>
-                    </div>
-
-                    <button onclick="encrypt()">🔐 암호화</button>
-
-                    <div id="encryptResult" class="result-box">
-                        <div class="result-title">암호화 결과:</div>
-                        <textarea id="encryptedOutput" readonly></textarea>
-                    </div>
-                </div>
-            </div>
-
-            <hr style="margin: 40px 0; border: none; border-top: 2px solid #ddd;">
-
-            <div class="concept-section">
-                <h2>🔓 복호화</h2>
-                <div class="practice-section">
-                    <div class="input-group">
-                        <label for="ciphertext">암호문을 입력하세요:</label>
-                        <textarea id="ciphertext" placeholder="예: KHOOR ZRUOG"></textarea>
-                    </div>
-
-                    <div class="input-group">
-                        <label for="decryptShift">시프트 값 (1-25):</label>
-                        <div class="shift-slider">
-                            <input type="range" id="decryptShift" min="1" max="25" value="3" onchange="updateDecryptShiftDisplay()">
-                            <span class="shift-value" id="decryptShiftDisplay">3</span>
-                        </div>
-                    </div>
-
-                    <button onclick="decrypt()">🔓 복호화</button>
-
-                    <div id="decryptResult" class="result-box">
-                        <div class="result-title">복호화 결과:</div>
-                        <textarea id="decryptedOutput" readonly></textarea>
-                    </div>
-                </div>
-            </div>
-
-            <hr style="margin: 40px 0; border: none; border-top: 2px solid #ddd;">
-
-            <div class="concept-section">
-                <h2>🔍 모든 경우의 수 복호화</h2>
-                <p>시프트 값을 모르는 경우, 가능한 모든 시프트 값(1-25)으로 복호화해 보세요!</p>
-                <div class="practice-section">
-                    <div class="input-group">
-                        <label for="bruteforceText">암호문을 입력하세요:</label>
-                        <textarea id="bruteforceText" placeholder="예: KHOOR"></textarea>
-                    </div>
-
-                    <button onclick="bruteForce()">🔎 모든 경우의 수 시도</button>
-
-                    <div id="bruteforceResult" class="result-box">
-                        <div class="result-title">가능한 모든 복호화 결과:</div>
-                        <div id="bruteforcelist" style="max-height: 400px; overflow-y: auto;"></div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- 게임 탭 -->
-        <div id="game" class="content">
-            <div class="game-section">
-                <h2 style="color: #667eea; margin-bottom: 20px;">⚡ 빠른 복호화 게임</h2>
-
-                <div class="game-info">
-                    <strong>📋 게임 설명:</strong><br>
-                    컴퓨터가 암호화된 문자열을 제시합니다. 당신은 인간의 직관력으로 컴퓨터보다 빠르게 원문을 맞춰야 합니다!<br><br>
-                    <strong>⏱️ 시간 제한:</strong> 난이도에 따라 다름<br>
-                    <strong>⭐ 난이도:</strong> 초급(30초), 중급(20초), 상급(10초)<br>
-                    <strong>💡 힌트:</strong> 각 난이도별로 제한된 횟수의 힌트를 사용할 수 있습니다!
-                </div>
-
-                <div class="game-controls">
-                    <button class="difficulty-btn active" onclick="setDifficulty('easy', this)">초급</button>
-                    <button class="difficulty-btn" onclick="setDifficulty('medium', this)">중급</button>
-                    <button class="difficulty-btn" onclick="setDifficulty('hard', this)">상급</button>
-                </div>
-
-                <div class="guide-box">
-                    <div class="guide-title">📖 게임 풀이 가이드</div>
-                    <div class="guide-content">
-                        <div class="guide-step"><strong>1단계:</strong> 첫 글자 찾기 - 가장 흔한 글자인 E, T, A 중에서 시작해보세요</div>
-                        <div class="guide-step"><strong>2단계:</strong> 패턴 찾기 - 같은 글자가 반복되는 패턴을 찾아보세요</div>
-                        <div class="guide-step"><strong>3단계:</strong> 추측하기 - 같은 시프트 값으로 모든 글자가 변환되므로, 한 글자를 알면 전체를 알 수 있습니다</div>
-                        <div class="guide-step"><strong>💡 팁:</strong> 아래 알파벳 표를 참고하여 몇 글자를 먼저 확인한 후 나머지를 추측해보세요!</div>
-                    </div>
-                </div>
-
-                <!-- 알파벳 참고 표 -->
-                <div class="alphabet-reference">
-                    <button class="toggle-alphabet-btn expanded" onclick="toggleAlphabet(this)">📍 알파벳 참고 표</button>
-                    <div class="alphabet-content expanded">
-                        <div style="margin-top: 15px;">
-                            <div style="font-size: 0.9em; color: #666; margin-bottom: 10px; text-align: center;">
-                                원문 위의 암호문을 보고 패턴을 찾아보세요!
-                            </div>
-                            <div style="background: white; padding: 15px; border-radius: 6px; border: 1px solid #ddd;">
-                                <div style="margin-bottom: 15px;">
-                                    <div style="font-size: 0.85em; font-weight: bold; color: #667eea; margin-bottom: 5px; text-align: center;">원문</div>
-                                    <div class="alphabet-wrapper">
-                                        <div class="alphabet-item"><div class="alphabet-letter">A</div><div class="alphabet-label">1</div></div>
-                                        <div class="alphabet-item"><div class="alphabet-letter">B</div><div class="alphabet-label">2</div></div>
-                                        <div class="alphabet-item"><div class="alphabet-letter">C</div><div class="alphabet-label">3</div></div>
-                                        <div class="alphabet-item"><div class="alphabet-letter">D</div><div class="alphabet-label">4</div></div>
-                                        <div class="alphabet-item"><div class="alphabet-letter">E</div><div class="alphabet-label">5</div></div>
-                                        <div class="alphabet-item"><div class="alphabet-letter">F</div><div class="alphabet-label">6</div></div>
-                                        <div class="alphabet-item"><div class="alphabet-letter">G</div><div class="alphabet-label">7</div></div>
-                                        <div class="alphabet-item"><div class="alphabet-letter">H</div><div class="alphabet-label">8</div></div>
-                                        <div class="alphabet-item"><div class="alphabet-letter">I</div><div class="alphabet-label">9</div></div>
-                                        <div class="alphabet-item"><div class="alphabet-letter">J</div><div class="alphabet-label">10</div></div>
-                                        <div class="alphabet-item"><div class="alphabet-letter">K</div><div class="alphabet-label">11</div></div>
-                                        <div class="alphabet-item"><div class="alphabet-letter">L</div><div class="alphabet-label">12</div></div>
-                                        <div class="alphabet-item"><div class="alphabet-letter">M</div><div class="alphabet-label">13</div></div>
-                                        <div class="alphabet-item"><div class="alphabet-letter">N</div><div class="alphabet-label">14</div></div>
-                                        <div class="alphabet-item"><div class="alphabet-letter">O</div><div class="alphabet-label">15</div></div>
-                                        <div class="alphabet-item"><div class="alphabet-letter">P</div><div class="alphabet-label">16</div></div>
-                                        <div class="alphabet-item"><div class="alphabet-letter">Q</div><div class="alphabet-label">17</div></div>
-                                        <div class="alphabet-item"><div class="alphabet-letter">R</div><div class="alphabet-label">18</div></div>
-                                        <div class="alphabet-item"><div class="alphabet-letter">S</div><div class="alphabet-label">19</div></div>
-                                        <div class="alphabet-item"><div class="alphabet-letter">T</div><div class="alphabet-label">20</div></div>
-                                        <div class="alphabet-item"><div class="alphabet-letter">U</div><div class="alphabet-label">21</div></div>
-                                        <div class="alphabet-item"><div class="alphabet-letter">V</div><div class="alphabet-label">22</div></div>
-                                        <div class="alphabet-item"><div class="alphabet-letter">W</div><div class="alphabet-label">23</div></div>
-                                        <div class="alphabet-item"><div class="alphabet-letter">X</div><div class="alphabet-label">24</div></div>
-                                        <div class="alphabet-item"><div class="alphabet-letter">Y</div><div class="alphabet-label">25</div></div>
-                                        <div class="alphabet-item"><div class="alphabet-letter">Z</div><div class="alphabet-label">26</div></div>
-                                    </div>
-                                </div>
-                                <div style="text-align: center; color: #999; margin: 10px 0;">⬇️ 시프트 값만큼 이동</div>
-                                <div>
-                                    <div style="font-size: 0.85em; font-weight: bold; color: #667eea; margin-bottom: 5px; text-align: center;">암호문</div>
-                                    <div class="alphabet-wrapper">
-                                        <div class="alphabet-item"><div class="alphabet-letter">A</div><div class="alphabet-label"></div></div>
-                                        <div class="alphabet-item"><div class="alphabet-letter">B</div><div class="alphabet-label"></div></div>
-                                        <div class="alphabet-item"><div class="alphabet-letter">C</div><div class="alphabet-label"></div></div>
-                                        <div class="alphabet-item"><div class="alphabet-letter">D</div><div class="alphabet-label"></div></div>
-                                        <div class="alphabet-item"><div class="alphabet-letter">E</div><div class="alphabet-label"></div></div>
-                                        <div class="alphabet-item"><div class="alphabet-letter">F</div><div class="alphabet-label"></div></div>
-                                        <div class="alphabet-item"><div class="alphabet-letter">G</div><div class="alphabet-label"></div></div>
-                                        <div class="alphabet-item"><div class="alphabet-letter">H</div><div class="alphabet-label"></div></div>
-                                        <div class="alphabet-item"><div class="alphabet-letter">I</div><div class="alphabet-label"></div></div>
-                                        <div class="alphabet-item"><div class="alphabet-letter">J</div><div class="alphabet-label"></div></div>
-                                        <div class="alphabet-item"><div class="alphabet-letter">K</div><div class="alphabet-label"></div></div>
-                                        <div class="alphabet-item"><div class="alphabet-letter">L</div><div class="alphabet-label"></div></div>
-                                        <div class="alphabet-item"><div class="alphabet-letter">M</div><div class="alphabet-label"></div></div>
-                                        <div class="alphabet-item"><div class="alphabet-letter">N</div><div class="alphabet-label"></div></div>
-                                        <div class="alphabet-item"><div class="alphabet-letter">O</div><div class="alphabet-label"></div></div>
-                                        <div class="alphabet-item"><div class="alphabet-letter">P</div><div class="alphabet-label"></div></div>
-                                        <div class="alphabet-item"><div class="alphabet-letter">Q</div><div class="alphabet-label"></div></div>
-                                        <div class="alphabet-item"><div class="alphabet-letter">R</div><div class="alphabet-label"></div></div>
-                                        <div class="alphabet-item"><div class="alphabet-letter">S</div><div class="alphabet-label"></div></div>
-                                        <div class="alphabet-item"><div class="alphabet-letter">T</div><div class="alphabet-label"></div></div>
-                                        <div class="alphabet-item"><div class="alphabet-letter">U</div><div class="alphabet-label"></div></div>
-                                        <div class="alphabet-item"><div class="alphabet-letter">V</div><div class="alphabet-label"></div></div>
-                                        <div class="alphabet-item"><div class="alphabet-letter">W</div><div class="alphabet-label"></div></div>
-                                        <div class="alphabet-item"><div class="alphabet-letter">X</div><div class="alphabet-label"></div></div>
-                                        <div class="alphabet-item"><div class="alphabet-letter">Y</div><div class="alphabet-label"></div></div>
-                                        <div class="alphabet-item"><div class="alphabet-letter">Z</div><div class="alphabet-label"></div></div>
-                                    </div>
-                                </div>
-                                <div style="font-size: 0.85em; color: #666; margin-top: 15px; padding-top: 15px; border-top: 1px solid #ddd; text-align: center;">
-                                    💡 <strong>사용 방법:</strong> 암호문의 글자를 찾고, 원문 표에서 위 혹은 아래 글자를 보면 시프트 패턴을 알 수 있습니다!
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="hint-section">
-                    <div class="hint-title">
-                        💡 힌트 및 가이드 <span class="hint-counter" id="hintCounter">힌트 남음: 2</span>
-                    </div>
-                    <div class="hint-content" id="hintContent">
-                        <div id="hintButtons" style="margin-bottom: 10px;">
-                            <button class="hint-button" id="hintBtn1" onclick="useHint('first')">첫 글자 보기</button>
-                            <button class="hint-button" id="hintBtn2" onclick="useHint('all')">전체 보기</button>
-                            <button class="hint-button" id="hintBtn3" onclick="useHint('shift')">시프트 값 보기</button>
-                        </div>
-                        <div id="hintDisplay"></div>
-                    </div>
-                </div>
-
-                <div class="game-display">
-                    <div style="margin-bottom: 10px; color: #666;">🔒 암호화된 문자:</div>
-                    <div class="encrypted-text" id="gameEncrypted">START 버튼을 눌러 시작하세요!</div>
-                    <div class="timer" id="gameTimer" style="display: none;">0</div>
-                </div>
-
-                <div class="input-group">
-                    <label for="gameGuess">당신의 답:</label>
-                    <input type="text" id="gameGuess" placeholder="원문을 입력하세요..." onkeypress="if(event.key==='Enter') submitGuess()">
-                </div>
-
-                <div class="button-group" style="justify-content: center;">
-                    <button id="gameStartBtn" onclick="startGame()">🎮 START</button>
-                    <button id="gameSubmitBtn" onclick="submitGuess()" style="display: none;">⚙️ 제출</button>
-                    <button id="gameStopBtn" onclick="stopGame()" style="display: none; background: #dc3545;">🛑 중지</button>
-                </div>
-
-                <div class="game-result" id="gameResult"></div>
-
-                <div class="stats">
-                    <div class="stat-box">
-                        <div class="stat-label">⏱️ 당신의 시간</div>
-                        <div class="stat-value" id="playerTime">-</div>
-                    </div>
-                    <div class="stat-box">
-                        <div class="stat-label">📊 정답률</div>
-                        <div class="stat-value" id="accuracy">-</div>
-                    </div>
-                </div>
-            </div>
-        </div>
+    <div class="card">
+      <div class="badge badge-blue">대칭키 암호화 (Symmetric Key Cryptography)</div>
+      <p style="font-size:14px;line-height:1.8;color:var(--muted)">
+        대칭키 암호화는 <strong style="color:var(--text)">암호화와 복호화에 동일한 키(Key)를 사용</strong>하는 방식입니다.
+        송신자와 수신자가 미리 같은 키를 공유해야 하며, 역사적으로 가장 오래된 암호화 방식입니다.
+      </p>
+      <div class="flow">
+        <div class="flow-step flow-plain">평문<br><small>원본 메시지</small></div>
+        <div class="flow-arrow">→</div>
+        <div class="flow-step flow-key">암호화<br><small>키 적용</small></div>
+        <div class="flow-arrow">→</div>
+        <div class="flow-step flow-cipher">암호문<br><small>숨겨진 메시지</small></div>
+        <div class="flow-arrow">→</div>
+        <div class="flow-step flow-key">복호화<br><small>같은 키 사용</small></div>
+        <div class="flow-arrow">→</div>
+        <div class="flow-step flow-plain">평문<br><small>복원 완료</small></div>
+      </div>
     </div>
 
-    <script>
-        // 탭 전환
-        function switchTab(tabName) {
-            const contents = document.querySelectorAll('.content');
-            const buttons = document.querySelectorAll('.tab-btn');
+    <div class="two-col">
+      <div class="card click-card" onclick="showSection('caesar'); setNav(1)">
+        <div class="badge badge-amber">치환형 (Substitution Cipher)</div>
+        <div class="card-title">카이사르 암호</div>
+        <p style="font-size:13px;color:var(--muted);line-height:1.7">
+          각 문자를 알파벳에서 일정한 수만큼 <strong style="color:var(--text)">이동</strong>시켜 다른 문자로 교체합니다.
+          Julius Caesar가 기원전 군사 통신에 사용한 역사상 가장 유명한 암호입니다.
+        </p>
+        <p style="font-size:12px;color:var(--amber);margin-top:10px;font-family:var(--mono)">
+          A → D → G (키=3씩 이동) →
+        </p>
+      </div>
+      <div class="card click-card" onclick="showSection('railfence'); setNav(2)">
+        <div class="badge badge-green">전치형 (Transposition Cipher)</div>
+        <div class="card-title">레일펜스 암호</div>
+        <p style="font-size:13px;color:var(--muted);line-height:1.7">
+          문자의 종류는 바꾸지 않고 <strong style="color:var(--text)">위치를 재배열</strong>합니다.
+          지그재그(Z) 패턴으로 레일에 문자를 쓴 뒤, 레일 순서대로 이어 읽어 암호문을 만듭니다.
+        </p>
+        <p style="font-size:12px;color:var(--green);margin-top:10px;font-family:var(--mono)">
+          HELLO → H·L·O / E·L (레일=2) →
+        </p>
+      </div>
+    </div>
 
-            contents.forEach(content => content.classList.remove('active'));
-            buttons.forEach(btn => btn.classList.remove('active'));
+    <div class="card">
+      <div class="badge badge-blue">치환형 vs 전치형 — 핵심 비교</div>
+      <div style="overflow-x:auto">
+        <table class="compare-table">
+          <tr>
+            <th>구분</th>
+            <th>치환형 — 카이사르 암호</th>
+            <th>전치형 — 레일펜스 암호</th>
+          </tr>
+          <tr>
+            <td style="color:var(--muted)">변환 방식</td>
+            <td>문자를 다른 문자로 교체</td>
+            <td>문자 위치를 재배열</td>
+          </tr>
+          <tr>
+            <td style="color:var(--muted)">문자 종류</td>
+            <td>바뀜 (A→D)</td>
+            <td>그대로 유지</td>
+          </tr>
+          <tr>
+            <td style="color:var(--muted)">키(Key)</td>
+            <td>이동 칸 수 (1~25)</td>
+            <td>레일 개수 (2~)</td>
+          </tr>
+          <tr>
+            <td style="color:var(--muted)">약점</td>
+            <td>빈도 분석으로 해독 가능</td>
+            <td>문자 종류가 유지돼 패턴 노출</td>
+          </tr>
+          <tr>
+            <td style="color:var(--muted)">역사적 사례</td>
+            <td>카이사르의 군사 통신</td>
+            <td>남북전쟁 시기 활용</td>
+          </tr>
+        </table>
+      </div>
+    </div>
 
-            document.getElementById(tabName).classList.add('active');
-            event.target.classList.add('active');
-        }
+    <div class="card">
+      <div class="badge badge-amber">핵심 용어 정리</div>
+      <div class="two-col" style="gap:0.5rem">
+        <div style="padding:12px;background:#FAFAF8;border-radius:8px;border:0.5px solid var(--border)">
+          <div style="font-family:var(--mono);font-size:12px;color:var(--amber);font-weight:500;margin-bottom:4px">평문 (Plaintext)</div>
+          <div style="font-size:13px;color:var(--muted)">암호화 전 원본 메시지. 누구나 읽을 수 있는 상태.</div>
+        </div>
+        <div style="padding:12px;background:#FAFAF8;border-radius:8px;border:0.5px solid var(--border)">
+          <div style="font-family:var(--mono);font-size:12px;color:var(--blue);font-weight:500;margin-bottom:4px">암호문 (Ciphertext)</div>
+          <div style="font-size:13px;color:var(--muted)">암호화 후 변환된 메시지. 키 없이는 읽기 어려움.</div>
+        </div>
+        <div style="padding:12px;background:#FAFAF8;border-radius:8px;border:0.5px solid var(--border)">
+          <div style="font-family:var(--mono);font-size:12px;color:var(--green);font-weight:500;margin-bottom:4px">키 (Key)</div>
+          <div style="font-size:13px;color:var(--muted)">암호화·복호화에 사용하는 비밀 값. 대칭키는 동일한 키 사용.</div>
+        </div>
+        <div style="padding:12px;background:#FAFAF8;border-radius:8px;border:0.5px solid var(--border)">
+          <div style="font-family:var(--mono);font-size:12px;color:var(--red);font-weight:500;margin-bottom:4px">복호화 (Decryption)</div>
+          <div style="font-size:13px;color:var(--muted)">암호문을 키를 이용해 다시 평문으로 되돌리는 과정.</div>
+        </div>
+      </div>
+    </div>
+  </div>
 
-        // 알파벳 참고 표 토글
-        function toggleAlphabet(btn) {
-            const content = btn.nextElementSibling;
-            btn.classList.toggle('expanded');
-            content.classList.toggle('expanded');
-        }
+  <!-- ===================== CAESAR ===================== -->
+  <div id="caesar" class="section">
 
-        // 암호화 및 복호화 함수
-        function shiftChar(char, shift) {
-            if (/[A-Z]/.test(char)) {
-                return String.fromCharCode((char.charCodeAt(0) - 65 + shift) % 26 + 65);
-            } else if (/[a-z]/.test(char)) {
-                return String.fromCharCode((char.charCodeAt(0) - 97 + shift) % 26 + 97);
-            }
-            return char;
-        }
+    <div class="card">
+      <div class="badge badge-amber">치환형 암호 · 카이사르 암호 (Caesar Cipher)</div>
+      <div class="concept">
+        알파벳 26개를 원형으로 배치했을 때, 각 문자를 키(K)만큼 뒤로 이동시킵니다.<br>
+        <strong style="color:var(--text)">예: 키=3이면 A→D, B→E, ..., Y→B, Z→C</strong><br>
+        복호화는 반대 방향으로 K만큼 이동하거나, (26−K)만큼 앞으로 이동하면 됩니다.
+      </div>
+    </div>
 
-        function caesarCipher(text, shift, decrypt = false) {
-            const actualShift = decrypt ? (26 - shift) % 26 : shift;
-            return text.split('').map(char => shiftChar(char, actualShift)).join('');
-        }
+    <div class="card">
+      <div class="card-title">알파벳 이동 시각화</div>
+      <p style="font-size:13px;color:var(--muted);margin-bottom:0.75rem">
+        슬라이더를 움직이면 각 알파벳이 어떻게 바뀌는지 실시간으로 확인할 수 있습니다.
+      </p>
+      <label>이동값 (키)</label>
+      <div class="range-row">
+        <input type="range" id="viz-shift" min="1" max="25" value="3" oninput="updateViz()">
+        <div class="range-val" id="viz-shift-val">3</div>
+      </div>
+      <div class="alpha-grid" id="alpha-viz"></div>
+    </div>
 
-        // 암호화
-        function encrypt() {
-            const plaintext = document.getElementById('plaintext').value;
-            const shift = parseInt(document.getElementById('encryptShift').value);
+    <div class="two-col">
+      <div class="card">
+        <div class="badge badge-amber">암호화 (Encryption)</div>
+        <label>평문 입력</label>
+        <textarea id="c-plain" rows="3" placeholder="예: HELLO WORLD" oninput="caesarUpdate()"></textarea>
+        <label style="margin-top:0.75rem">키 (이동값)</label>
+        <div class="range-row">
+          <input type="range" id="c-shift" min="1" max="25" value="3" oninput="caesarUpdate()">
+          <div class="range-val" id="c-shift-val">3</div>
+        </div>
+        <label>암호문 결과</label>
+        <div class="result-box" id="c-cipher">암호문이 여기 표시됩니다</div>
+      </div>
+      <div class="card">
+        <div class="badge badge-blue">복호화 (Decryption)</div>
+        <label>암호문 입력</label>
+        <textarea id="c-dec-input" rows="3" placeholder="예: KHOOR ZRUOG" oninput="caesarDecUpdate()"></textarea>
+        <label style="margin-top:0.75rem">키 (이동값)</label>
+        <div class="range-row">
+          <input type="range" id="c-dec-shift" min="1" max="25" value="3" oninput="caesarDecUpdate()">
+          <div class="range-val" id="c-dec-shift-val">3</div>
+        </div>
+        <label>복호화 결과</label>
+        <div class="result-box" id="c-dec-result">복호화 결과가 여기 표시됩니다</div>
+      </div>
+    </div>
 
-            if (plaintext.trim() === '') {
-                alert('원문을 입력해주세요!');
-                return;
-            }
+    <div class="card">
+      <div class="badge badge-red">카이사르 암호의 약점 — 빈도 분석 (Frequency Analysis)</div>
+      <p style="font-size:13px;color:var(--muted);line-height:1.7;margin-bottom:0.75rem">
+        영어에서 알파벳은 등장 빈도가 다릅니다: <strong style="color:var(--text)">E(12.7%) T(9.1%) A(8.2%)</strong> 순으로 자주 나옵니다.
+        암호문에서 가장 많이 나오는 문자를 찾으면, E일 가능성이 높아 키를 추측할 수 있습니다. 이것이 카이사르 암호의 치명적 약점입니다!
+      </p>
+      <label>분석할 암호문 입력</label>
+      <input type="text" id="freq-input" placeholder="긴 암호문을 입력하면 빈도를 분석합니다" oninput="freqAnalysis()">
+      <div class="freq-chart-wrap" id="freq-chart"></div>
+      <div id="freq-hint" style="font-size:12px;color:var(--muted);margin-top:8px;font-family:var(--mono)"></div>
+    </div>
+  </div>
 
-            const encrypted = caesarCipher(plaintext, shift);
-            const resultBox = document.getElementById('encryptResult');
-            document.getElementById('encryptedOutput').value = encrypted;
-            resultBox.classList.add('show');
-        }
+  <!-- ===================== RAIL FENCE ===================== -->
+  <div id="railfence" class="section">
 
-        // 복호화
-        function decrypt() {
-            const ciphertext = document.getElementById('ciphertext').value;
-            const shift = parseInt(document.getElementById('decryptShift').value);
+    <div class="card">
+      <div class="badge badge-green">전치형 암호 · 레일펜스 암호 (Rail Fence Cipher)</div>
+      <div class="concept">
+        평문을 지그재그(Z자) 패턴으로 여러 개의 레일(줄)에 나눠 씁니다.<br>
+        <strong style="color:var(--text)">레일을 위에서 아래 순서로 이어 읽으면 암호문이 완성됩니다.</strong><br>
+        복호화는 암호문의 길이와 레일 수를 알면 역으로 패턴을 재구성하여 원문을 복원할 수 있습니다.
+      </div>
+    </div>
 
-            if (ciphertext.trim() === '') {
-                alert('암호문을 입력해주세요!');
-                return;
-            }
+    <div class="two-col">
+      <div class="card">
+        <div class="badge badge-green">암호화 (Encryption)</div>
+        <label>평문 입력</label>
+        <textarea id="r-plain" rows="3" placeholder="예: HELLO WORLD" oninput="railUpdate()"></textarea>
+        <label style="margin-top:0.75rem">레일 수 (키)</label>
+        <div class="range-row">
+          <input type="range" id="r-rails" min="2" max="5" value="3" oninput="railUpdate()">
+          <div class="range-val" id="r-rails-val">3</div>
+        </div>
+        <label>암호문 결과</label>
+        <div class="result-box" id="r-cipher">암호문이 여기 표시됩니다</div>
+      </div>
+      <div class="card">
+        <div class="badge badge-blue">복호화 (Decryption)</div>
+        <label>암호문 입력</label>
+        <textarea id="r-dec-input" rows="3" placeholder="암호문을 입력하세요" oninput="railDecUpdate()"></textarea>
+        <label style="margin-top:0.75rem">레일 수 (키)</label>
+        <div class="range-row">
+          <input type="range" id="r-dec-rails" min="2" max="5" value="3" oninput="railDecUpdate()">
+          <div class="range-val" id="r-dec-rails-val">3</div>
+        </div>
+        <label>복호화 결과</label>
+        <div class="result-box" id="r-dec-result">복호화 결과가 여기 표시됩니다</div>
+      </div>
+    </div>
 
-            const decrypted = caesarCipher(ciphertext, shift, true);
-            const resultBox = document.getElementById('decryptResult');
-            document.getElementById('decryptedOutput').value = decrypted;
-            resultBox.classList.add('show');
-        }
+    <div class="card">
+      <div class="card-title">레일 패턴 시각화 — 지그재그 확인하기</div>
+      <p style="font-size:13px;color:var(--muted);margin-bottom:0.75rem">
+        텍스트를 입력하면 각 문자가 어느 레일에 배치되는지 색깔로 확인할 수 있습니다.
+      </p>
+      <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:0.75rem">
+        <input type="text" id="rail-viz-input" placeholder="시각화할 텍스트 입력 (예: SECRETMESSAGE)" style="flex:1;min-width:160px" oninput="railViz()">
+        <div style="display:flex;align-items:center;gap:8px;white-space:nowrap">
+          <label style="margin:0">레일 수</label>
+          <input type="range" id="rail-viz-rails" min="2" max="5" value="3" oninput="railViz()" style="width:80px">
+          <span id="rvr-val" style="font-size:16px;font-weight:700;font-family:var(--mono)">3</span>
+        </div>
+      </div>
+      <div id="rail-viz-out"></div>
+      <div class="legend-row">
+        <div class="legend-item"><div class="legend-dot" style="background:var(--blue)"></div>레일 1</div>
+        <div class="legend-item"><div class="legend-dot" style="background:var(--amber)"></div>레일 2</div>
+        <div class="legend-item"><div class="legend-dot" style="background:var(--green)"></div>레일 3</div>
+        <div class="legend-item"><div class="legend-dot" style="background:var(--red)"></div>레일 4</div>
+      </div>
+    </div>
+  </div>
 
-        // 모든 경우의 수 시도 (Brute Force)
-        function bruteForce() {
-            const text = document.getElementById('bruteforceText').value;
+  <!-- ===================== GAME ===================== -->
+  <div id="game" class="section">
 
-            if (text.trim() === '') {
-                alert('암호문을 입력해주세요!');
-                return;
-            }
+    <div class="card" style="border:1.5px solid #F7C1C1">
+      <div class="badge badge-red">🕵️ 첩보 미션 — 암호 해독전</div>
+      <p style="font-size:13px;color:var(--muted);line-height:1.7">
+        당신은 비밀 정보국 소속 요원입니다. 적의 암호 통신을 가로챘습니다.
+        주어진 알고리즘과 힌트를 바탕으로 <strong style="color:var(--text)">60초 안에</strong> 암호문을 해독해 미션을 완료하세요.
+        빠를수록 높은 점수를 얻습니다!
+      </p>
+    </div>
 
-            let results = '<table style="width:100%; border-collapse: collapse;">';
-            results += '<tr style="background:#667eea; color:white;"><th style="padding:10px; border:1px solid #ddd;">시프트</th><th style="padding:10px; border:1px solid #ddd;">결과</th></tr>';
+    <div class="game-header">
+      <div class="game-stat">레벨<span id="g-level">1</span></div>
+      <div class="game-stat">점수<span id="g-score">0</span></div>
+      <div class="game-stat">⏱ 남은 시간<span id="g-time">60초</span></div>
+      <div class="game-stat">미션<span id="g-mission-num">0 / 7</span></div>
+      <button class="btn btn-primary" onclick="startGame()" style="margin-left:auto">미션 시작 →</button>
+    </div>
+    <div class="progress-bar-wrap">
+      <div class="progress-bar" id="g-progress" style="width:100%"></div>
+    </div>
 
-            for (let i = 1; i <= 25; i++) {
-                const decrypted = caesarCipher(text, i, true);
-                results += `<tr style="background:${i % 2 === 0 ? '#f8f9fa' : '#fff'};"><td style="padding:10px; border:1px solid #ddd; font-weight:bold;">${i}</td><td style="padding:10px; border:1px solid #ddd; font-family:monospace;">${decrypted}</td></tr>`;
-            }
+    <div id="game-area" style="display:none">
+      <div class="card">
+        <div class="game-mission" id="g-mission"></div>
+        <div class="cipher-display" id="g-ciphertext"></div>
+        <div class="hint-box" id="g-hint"></div>
+        <label>해독한 평문을 입력하세요 (대소문자 무시, 공백 포함)</label>
+        <div class="input-row">
+          <input type="text" id="g-answer" placeholder="여기에 입력하고 Enter 또는 제출 클릭" onkeydown="if(event.key==='Enter')checkAnswer()">
+          <button class="btn btn-primary" onclick="checkAnswer()">제출</button>
+        </div>
+        <div class="feedback" id="g-feedback" style="display:none"></div>
+      </div>
 
-            results += '</table>';
-            document.getElementById('bruteforcelist').innerHTML = results;
-            document.getElementById('bruteforceResult').classList.add('show');
-        }
+      <!-- 보조 도구 패널 -->
+      <div id="g-tool-caesar" class="tool-panel" style="display:none">
+        <div class="tool-panel-header" onclick="toggleTool('caesar-body')">
+          <span>🔡 카이사르 해독 도우미 — 알파벳 대응표</span>
+          <span class="toggle-icon" id="caesar-icon">▼ 펼치기</span>
+        </div>
+        <div class="tool-panel-body open" id="caesar-body">
+          <p style="font-size:12px;color:var(--muted);margin-bottom:8px">
+            슬라이더로 이동값(키)을 조절하면 원문↔암호문 알파벳 대응표가 실시간으로 바뀝니다. 암호문 글자를 원문 행에서 찾으면 됩니다.
+          </p>
+          <div class="game-shift-row">
+            <label>이동값 추측</label>
+            <input type="range" id="g-shift-slider" min="1" max="25" value="3" oninput="updateGameAlphaTable()">
+            <div class="game-shift-val" id="g-shift-disp">3</div>
+          </div>
+          <div style="overflow-x:auto">
+            <table class="alpha-table" id="g-alpha-table"></table>
+          </div>
+        </div>
+      </div>
 
-        // Shift 값 업데이트 표시
-        function updateEncryptShiftDisplay() {
-            document.getElementById('encryptShiftDisplay').textContent = 
-                document.getElementById('encryptShift').value;
-        }
+      <div id="g-tool-rail" class="tool-panel" style="display:none">
+        <div class="tool-panel-header" onclick="toggleTool('rail-body')">
+          <span>🔀 레일펜스 해독 도우미</span>
+          <span class="toggle-icon" id="rail-icon">▼ 펼치기</span>
+        </div>
+        <div class="tool-panel-body open" id="rail-body">
+          <div class="tool-tabs">
+            <button class="tool-tab active" id="tab-grid" onclick="switchRailTab('grid')">레일 배치 시각화</button>
+            <button class="tool-tab" id="tab-scratch" onclick="switchRailTab('scratch')">메모장</button>
+          </div>
 
-        function updateDecryptShiftDisplay() {
-            document.getElementById('decryptShiftDisplay').textContent = 
-                document.getElementById('decryptShift').value;
-        }
+          <div id="rail-tab-grid">
+            <p style="font-size:12px;color:var(--muted);margin-bottom:8px">
+              암호문을 입력하면 레일 별로 문자가 어떻게 배치되는지 보여줍니다. 색깔 순서대로 이어 읽으면 평문이 복원됩니다.
+            </p>
+            <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-bottom:10px">
+              <input type="text" id="g-rail-input" placeholder="암호문 붙여넣기" style="flex:1;min-width:140px;font-size:13px" oninput="updateGameRailGrid()">
+              <div style="display:flex;align-items:center;gap:6px;white-space:nowrap">
+                <label style="margin:0;font-size:12px">레일 수</label>
+                <input type="range" id="g-rail-slider" min="2" max="5" value="2" oninput="updateGameRailGrid()" style="width:70px;accent-color:var(--green)">
+                <span id="g-rail-disp" style="font-family:var(--mono);font-size:14px;font-weight:700;color:var(--green);min-width:16px">2</span>
+              </div>
+            </div>
+            <div class="rail-grid-wrap" id="g-rail-grid"></div>
+            <div id="g-rail-read" style="font-size:12px;color:var(--muted);margin-top:8px;font-family:var(--mono)"></div>
+          </div>
 
-        // ===== 게임 로직 =====
-        let currentGameShift = 0;
-        let currentGameText = '';
-        let gameStartTime = 0;
-        let gameTimer = null;
-        let difficulty = 'easy';
-        let gameActive = false;
-        let hintsUsed = 0;
-        let maxHints = 2;
+          <div id="rail-tab-scratch" style="display:none">
+            <p style="font-size:12px;color:var(--muted);margin-bottom:8px">
+              자유롭게 메모하며 직접 풀어보세요. 암호문을 아래에 옮겨 적고 레일 패턴을 손으로 유추해 보세요.
+            </p>
+            <textarea class="scratch-pad" placeholder="여기에 자유롭게 메모하세요&#10;예)&#10;레일1: H _ L _ O&#10;레일2: _ E _ L _&#10;→ 평문: HELLO"></textarea>
+          </div>
+        </div>
+      </div>
 
-        const difficultySettings = {
-            easy: { 
-                time: 30, 
-                hints: 3,
-                words: ['CAESAR', 'CIPHER', 'SECURITY', 'ALPHABET', 'ENCRYPTION', 'DECODE', 'PUZZLE', 'CHALLENGE', 'ANCIENT', 'STRATEGY', 'PROTECT', 'MESSAGE', 'SECRET', 'HIDDEN'] 
-            },
-            medium: { 
-                time: 20, 
-                hints: 2,
-                words: ['CRYPTOGRAPHY', 'MYSTERIOUS', 'INTELLIGENCE', 'PROTECTION', 'SECRECY', 'MESSAGE', 'HIDDEN', 'DISCOVER', 'TRANSFORM', 'SYSTEM', 'BREAKING', 'SHIFTING'] 
-            },
-            hard: { 
-                time: 10, 
-                hints: 1,
-                words: ['CRYPTOGRAPHIC', 'SUBSTITUTION', 'TRANSPOSITION', 'AUTHENTICATION', 'CONFIDENTIAL', 'VULNERABILITY', 'PENETRATION', 'ALGORITHM', 'IMPLEMENTATION', 'DECRYPTION'] 
-            }
-        };
+    </div>
 
-        function setDifficulty(level, btn) {
-            difficulty = level;
-            document.querySelectorAll('.difficulty-btn').forEach(b => b.classList.remove('active'));
-            btn.classList.add('active');
-            if (gameActive) stopGame();
-            resetHints();
-        }
+    <div id="game-result" style="display:none">
+      <div class="card" style="text-align:center;padding:2rem">
+        <div class="trophy" id="g-trophy">🏆</div>
+        <div style="font-size:22px;font-weight:700;margin-bottom:0.5rem" id="g-result-title"></div>
+        <div style="font-size:14px;color:var(--muted);margin-bottom:1.5rem" id="g-result-desc"></div>
+        <div style="display:flex;justify-content:center;gap:12px;flex-wrap:wrap">
+          <div class="game-stat" style="text-align:center">최종 점수<span id="g-final-score" style="font-size:26px;color:var(--text)"></span></div>
+          <div class="game-stat" style="text-align:center">완료 미션<span id="g-missions-done" style="font-size:26px;color:var(--text)"></span></div>
+        </div>
+        <button class="btn btn-primary" style="margin-top:1.5rem;padding:10px 32px" onclick="startGame()">다시 도전!</button>
+      </div>
+    </div>
 
-        function resetHints() {
-            hintsUsed = 0;
-            maxHints = difficultySettings[difficulty].hints;
-            updateHintCounter();
-            document.getElementById('hintDisplay').innerHTML = '';
-            document.getElementById('hintBtn1').disabled = false;
-            document.getElementById('hintBtn2').disabled = false;
-            document.getElementById('hintBtn3').disabled = false;
-        }
+  </div>
+</div><!-- /site -->
 
-        function updateHintCounter() {
-            const remaining = maxHints - hintsUsed;
-            document.getElementById('hintCounter').textContent = `힌트 남음: ${remaining}`;
-        }
+<script>
+// ── NAVIGATION ──
+function showSection(id) {
+  document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  const ids = ['intro','caesar','railfence','game'];
+  setNav(ids.indexOf(id));
+}
+function setNav(idx) {
+  document.querySelectorAll('.nav-btn').forEach((b,i) => b.classList.toggle('active', i === idx));
+}
 
-        function getRandomWord() {
-            const words = difficultySettings[difficulty].words;
-            return words[Math.floor(Math.random() * words.length)];
-        }
+// ── CAESAR ──
+function caesarEnc(text, shift) {
+  return text.toUpperCase().split('').map(c => {
+    if (c >= 'A' && c <= 'Z') return String.fromCharCode((c.charCodeAt(0) - 65 + shift) % 26 + 65);
+    return c;
+  }).join('');
+}
+function caesarDec(text, shift) { return caesarEnc(text, 26 - (shift % 26)); }
 
-        function useHint(type) {
-            if (hintsUsed >= maxHints) {
-                alert(`더 이상 힌트를 사용할 수 없습니다. (${maxHints}/${maxHints} 사용)`);
-                return;
-            }
+function caesarUpdate() {
+  const p = document.getElementById('c-plain').value;
+  const s = +document.getElementById('c-shift').value;
+  document.getElementById('c-shift-val').textContent = s;
+  document.getElementById('c-cipher').textContent = p ? caesarEnc(p, s) : '암호문이 여기 표시됩니다';
+}
+function caesarDecUpdate() {
+  const p = document.getElementById('c-dec-input').value;
+  const s = +document.getElementById('c-dec-shift').value;
+  document.getElementById('c-dec-shift-val').textContent = s;
+  document.getElementById('c-dec-result').textContent = p ? caesarDec(p, s) : '복호화 결과가 여기 표시됩니다';
+}
 
-            let hintText = '';
-            const encrypted = document.getElementById('gameEncrypted').textContent;
+// ── ALPHABET VISUALIZER ──
+function updateViz() {
+  const k = +document.getElementById('viz-shift').value;
+  document.getElementById('viz-shift-val').textContent = k;
+  const alpha = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+  const el = document.getElementById('alpha-viz');
+  let orig = '<div class="row">';
+  let enc  = '<div class="row">';
+  alpha.split('').forEach((c, i) => {
+    orig += `<span class="alpha-orig">${c}</span>`;
+    enc  += `<span class="alpha-enc">${alpha[(i + k) % 26]}</span>`;
+  });
+  orig += '</div>'; enc += '</div>';
+  el.innerHTML = orig + enc;
+}
+updateViz();
 
-            if (type === 'first') {
-                hintText = `<div class="hint-box">
-                    <strong>📍 첫 글자 힌트:</strong><br>
-                    첫 글자: <span style="font-family: monospace; font-weight: bold; color: #667eea;">? → ${currentGameText[0]}</span><br>
-                    <span style="font-size: 0.9em; color: #666;">암호문의 첫 글자 <strong>${encrypted[0]}</strong>는 원문의 <strong>${currentGameText[0]}</strong>로 해석됩니다!</span>
-                </div>`;
-            } else if (type === 'all') {
-                hintText = `<div class="hint-box">
-                    <strong>🔓 전체 보기:</strong><br>
-                    <span style="font-family: monospace; font-weight: bold; color: #28a745; font-size: 1.1em;">${currentGameText}</span><br>
-                    <span style="font-size: 0.9em; color: #666;">이제 이 단어를 입력하고 제출 버튼을 누르면 됩니다!</span>
-                </div>`;
-            } else if (type === 'shift') {
-                hintText = `<div class="hint-box">
-                    <strong>🔑 시프트 값 힌트:</strong><br>
-                    시프트 값은 <strong><span style="color: #667eea; font-size: 1.1em;">${currentGameShift}</span></strong>입니다!<br>
-                    <span style="font-size: 0.9em; color: #666;">암호문의 각 글자에서 ${currentGameShift}칸 뒤로 가면 원문이 됩니다.</span>
-                </div>`;
-            }
+// ── FREQUENCY ANALYSIS ──
+function freqAnalysis() {
+  const t = document.getElementById('freq-input').value.toUpperCase();
+  const freq = {};
+  let total = 0;
+  for (const c of t) {
+    if (c >= 'A' && c <= 'Z') { freq[c] = (freq[c] || 0) + 1; total++; }
+  }
+  const el = document.getElementById('freq-chart');
+  if (!total) { el.innerHTML = ''; document.getElementById('freq-hint').textContent = ''; return; }
+  const alpha = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+  const max = Math.max(...Object.values(freq), 1);
+  let h = '';
+  alpha.split('').forEach(c => {
+    const cnt = freq[c] || 0;
+    const pct = Math.round(cnt / total * 100);
+    const ht  = Math.round((cnt / max) * 48);
+    h += `<div class="freq-bar-col">
+      <div class="freq-count">${cnt > 0 ? pct + '%' : ''}</div>
+      <div class="freq-bar" style="height:${ht}px;background:${cnt > 0 ? 'var(--blue)' : 'var(--border)'}"></div>
+      <div class="freq-label">${c}</div>
+    </div>`;
+  });
+  el.innerHTML = h;
+  const mostFreq = Object.entries(freq).sort((a, b) => b[1] - a[1])[0];
+  if (mostFreq) {
+    const guessShift = ((mostFreq[0].charCodeAt(0) - 69) + 26) % 26;
+    document.getElementById('freq-hint').textContent =
+      `가장 많은 문자: ${mostFreq[0]} (${Math.round(mostFreq[1]/total*100)}%) → E일 가능성 → 추정 키: ${guessShift || 26}`;
+  }
+}
 
-            document.getElementById('hintDisplay').innerHTML = hintText;
-            hintsUsed++;
-            updateHintCounter();
-        }
+// ── RAIL FENCE ──
+function getPattern(n, rails) {
+  const pat = [];
+  let r = 0, dir = 1;
+  for (let i = 0; i < n; i++) {
+    pat.push(r);
+    if (r === 0) dir = 1;
+    else if (r === rails - 1) dir = -1;
+    r += dir;
+  }
+  return pat;
+}
+function railEnc(text, rails) {
+  const clean = text.toUpperCase().replace(/\s/g, '');
+  const fence = Array.from({ length: rails }, () => []);
+  const pat = getPattern(clean.length, rails);
+  clean.split('').forEach((c, i) => fence[pat[i]].push(c));
+  return fence.map(r => r.join('')).join('');
+}
+function railDec(cipher, rails) {
+  const n = cipher.length;
+  const pat = getPattern(n, rails);
+  const counts = Array(rails).fill(0);
+  pat.forEach(r => counts[r]++);
+  const starts = [0];
+  for (let i = 1; i < rails; i++) starts.push(starts[i-1] + counts[i-1]);
+  const idxs = starts.slice();
+  const res = Array(n);
+  for (let i = 0; i < n; i++) res[i] = cipher[idxs[pat[i]]++];
+  return res.join('');
+}
 
-        function startGame() {
-            resetHints();
-            gameActive = true;
-            const timeLimit = difficultySettings[difficulty].time;
+function railUpdate() {
+  const p = document.getElementById('r-plain').value;
+  const r = +document.getElementById('r-rails').value;
+  document.getElementById('r-rails-val').textContent = r;
+  document.getElementById('r-cipher').textContent = p ? railEnc(p, r) : '암호문이 여기 표시됩니다';
+}
+function railDecUpdate() {
+  const p = document.getElementById('r-dec-input').value.toUpperCase().replace(/\s/g,'');
+  const r = +document.getElementById('r-dec-rails').value;
+  document.getElementById('r-dec-rails-val').textContent = r;
+  document.getElementById('r-dec-result').textContent = p ? railDec(p, r) : '복호화 결과가 여기 표시됩니다';
+}
 
-            currentGameText = getRandomWord();
-            currentGameShift = Math.floor(Math.random() * 25) + 1;
-            const encrypted = caesarCipher(currentGameText, currentGameShift);
+function railViz() {
+  const text = document.getElementById('rail-viz-input').value.toUpperCase().replace(/\s/g,'');
+  const rails = +document.getElementById('rail-viz-rails').value;
+  document.getElementById('rvr-val').textContent = rails;
+  const el = document.getElementById('rail-viz-out');
+  if (!text) { el.innerHTML = ''; return; }
+  const pat = getPattern(text.length, rails);
+  const cls = ['rail-r0','rail-r1','rail-r2','rail-r3'];
+  let h = '<div class="rail-visual">';
+  for (let r = 0; r < rails; r++) {
+    h += '<div>';
+    for (let i = 0; i < text.length; i++) {
+      h += pat[i] === r
+        ? `<span class="rail-char ${cls[r]}">${text[i]}</span>`
+        : `<span class="rail-char rail-dot">·</span>`;
+    }
+    h += '</div>';
+  }
+  h += '</div>';
+  el.innerHTML = h;
+}
 
-            document.getElementById('gameEncrypted').textContent = encrypted;
-            document.getElementById('gameGuess').value = '';
-            document.getElementById('gameGuess').focus();
-            document.getElementById('gameResult').classList.remove('show');
-            document.getElementById('gameResult').classList.remove('correct');
-            document.getElementById('gameResult').classList.remove('incorrect');
+// ── GAME ──
+const MISSIONS = [
+  { type:'caesar', plain:'ATTACK AT DAWN',      shift:3,  hint:'키(이동값): 3 — 카이사르가 가장 즐겨 쓴 키입니다.', level:1 },
+  { type:'caesar', plain:'SEND HELP NOW',        shift:7,  hint:'키(이동값): 7 — 각 문자를 7칸 뒤로 이동했습니다.', level:1 },
+  { type:'railfence', plain:'MEETATMIDNIGHT',    rails:2,  hint:'알고리즘: 레일펜스, 레일 수: 2', level:2 },
+  { type:'caesar', plain:'TOP SECRET',           shift:13, hint:'키(이동값): 13 — ROT13이라고도 불립니다. 13+13=26!', level:2 },
+  { type:'railfence', plain:'THEENEMYISCLOSE',   rails:3,  hint:'알고리즘: 레일펜스, 레일 수: 3 — 지그재그 패턴으로 배치', level:3 },
+  { type:'caesar', plain:'OPERATION SUNRISE',    shift:19, hint:'키(이동값): 19 — 거꾸로 7칸 이동과 같습니다. (26-7=19)', level:3 },
+  { type:'railfence', plain:'CODEISBROKEN',      rails:4,  hint:'알고리즘: 레일펜스, 레일 수: 4 — 4개의 레일로 배치!', level:3 },
+];
 
-            document.getElementById('gameStartBtn').style.display = 'none';
-            document.getElementById('gameSubmitBtn').style.display = 'inline-block';
-            document.getElementById('gameStopBtn').style.display = 'inline-block';
+let curMission = 0, score = 0, timer = null, timeLeft = 60;
 
-            document.getElementById('gameTimer').style.display = 'block';
-            document.getElementById('playerTime').textContent = '-';
-            document.getElementById('accuracy').textContent = '-';
+function startGame() {
+  curMission = 0; score = 0; timeLeft = 60;
+  document.getElementById('g-score').textContent = 0;
+  document.getElementById('g-level').textContent = 1;
+  document.getElementById('g-time').textContent = '60초';
+  document.getElementById('g-mission-num').textContent = '0 / ' + MISSIONS.length;
+  document.getElementById('game-result').style.display = 'none';
+  document.getElementById('game-area').style.display = 'block';
+  document.getElementById('g-feedback').style.display = 'none';
+  loadMission();
+  clearInterval(timer);
+  timer = setInterval(() => {
+    timeLeft--;
+    document.getElementById('g-time').textContent = timeLeft + '초';
+    document.getElementById('g-progress').style.width = (timeLeft / 60 * 100) + '%';
+    if (timeLeft <= 0) endGame(false);
+  }, 1000);
+}
 
-            gameStartTime = Date.now();
-            let timeLeft = timeLimit;
+function loadMission() {
+  if (curMission >= MISSIONS.length) { endGame(true); return; }
+  const m = MISSIONS[curMission];
+  document.getElementById('g-level').textContent = m.level;
+  document.getElementById('g-mission-num').textContent = (curMission + 1) + ' / ' + MISSIONS.length;
+  const cipher = m.type === 'caesar' ? caesarEnc(m.plain, m.shift) : railEnc(m.plain, m.rails);
+  const typeLabel = m.type === 'caesar' ? '카이사르 암호 (치환형)' : '레일펜스 암호 (전치형)';
+  document.getElementById('g-mission').innerHTML =
+    `<strong style="color:var(--text)">📋 미션 ${curMission + 1} / ${MISSIONS.length} &nbsp;·&nbsp; 레벨 ${m.level}</strong><br>
+    사용된 알고리즘: <strong style="color:var(--text)">${typeLabel}</strong><br>
+    아래 암호문을 해독하여 원본 평문을 밝혀내세요!`;
+  document.getElementById('g-ciphertext').textContent = cipher;
+  document.getElementById('g-hint').textContent = '💡 힌트: ' + m.hint;
+  document.getElementById('g-answer').value = '';
+  document.getElementById('g-feedback').style.display = 'none';
 
-            document.getElementById('gameTimer').textContent = timeLeft;
-            document.getElementById('gameTimer').classList.remove('warning');
+  // 알고리즘에 맞는 도구 패널 표시
+  const isCaesar = m.type === 'caesar';
+  document.getElementById('g-tool-caesar').style.display = isCaesar ? 'block' : 'none';
+  document.getElementById('g-tool-rail').style.display = !isCaesar ? 'block' : 'none';
+  if (isCaesar) {
+    updateGameAlphaTable();
+  } else {
+    document.getElementById('g-rail-input').value = cipher;
+    document.getElementById('g-rail-slider').value = m.rails;
+    document.getElementById('g-rail-disp').textContent = m.rails;
+    updateGameRailGrid();
+  }
 
-            gameTimer = setInterval(() => {
-                timeLeft--;
-                document.getElementById('gameTimer').textContent = timeLeft;
+  document.getElementById('g-answer').focus();
+}
 
-                if (timeLeft <= 5) {
-                    document.getElementById('gameTimer').classList.add('warning');
-                }
+// ── GAME TOOL: 카이사르 알파벳 대응표 ──
+function updateGameAlphaTable() {
+  const k = +document.getElementById('g-shift-slider').value;
+  document.getElementById('g-shift-disp').textContent = k;
+  const alpha = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+  let origRow = '<tr>';
+  let encRow  = '<tr>';
+  alpha.split('').forEach((c, i) => {
+    origRow += `<td class="row-enc">${c}</td>`;
+    encRow  += `<td class="row-orig">${alpha[(i + k) % 26]}</td>`;
+  });
+  origRow += '</tr>'; encRow += '</tr>';
+  // header label cells
+  const labelOrig = '<tr><td style="color:var(--muted);font-size:10px;border:none;text-align:left;padding:2px 4px" colspan="26">원문(평문)</td></tr>';
+  const labelEnc  = '<tr><td style="color:var(--amber-text);font-size:10px;border:none;text-align:left;padding:2px 4px" colspan="26">암호문</td></tr>';
+  document.getElementById('g-alpha-table').innerHTML = labelOrig + origRow + labelEnc + encRow;
+}
 
-                if (timeLeft <= 0) {
-                    clearInterval(gameTimer);
-                    document.getElementById('gameResult').classList.add('show');
-                    document.getElementById('gameResult').classList.add('incorrect');
-                    document.getElementById('gameResult').innerHTML = `
-                        <div>❌ 시간 초과!</div>
-                        <div style="margin-top: 10px; font-size: 1em;">정답: <span style="color: #28a745; font-family: monospace; font-weight: bold;">${currentGameText}</span></div>
-                        <div style="margin-top: 8px; font-size: 0.9em;">시프트 값: ${currentGameShift}</div>
-                    `;
-                    stopGame();
-                }
-            }, 1000);
-        }
+// ── GAME TOOL: 레일펜스 배치 시각화 ──
+function updateGameRailGrid() {
+  const text  = document.getElementById('g-rail-input').value.toUpperCase().replace(/\s/g,'');
+  const rails = +document.getElementById('g-rail-slider').value;
+  document.getElementById('g-rail-disp').textContent = rails;
+  const el = document.getElementById('g-rail-grid');
+  const readEl = document.getElementById('g-rail-read');
+  if (!text) { el.innerHTML = ''; readEl.textContent = ''; return; }
 
-        function submitGuess() {
-            if (!gameActive) return;
+  const pat = getPattern(text.length, rails);
+  const railChars = Array.from({length: rails}, () => []);
+  text.split('').forEach((c, i) => railChars[pat[i]].push({c, pos: i}));
 
-            const guess = document.getElementById('gameGuess').value.toUpperCase().trim();
-            const elapsedTime = ((Date.now() - gameStartTime) / 1000).toFixed(2);
+  let h = '';
+  for (let r = 0; r < rails; r++) {
+    h += `<div class="rail-grid-row"><div class="rail-grid-label">레일 ${r+1}</div>`;
+    for (let i = 0; i < text.length; i++) {
+      const inRail = pat[i] === r;
+      h += inRail
+        ? `<div class="rail-cell filled-${r}">${text[i]}</div>`
+        : `<div class="rail-cell empty">·</div>`;
+    }
+    h += '</div>';
+  }
+  el.innerHTML = h;
 
-            clearInterval(gameTimer);
+  // 읽는 순서 표시
+  const readOrder = railChars.map((arr, r) => `레일${r+1}: ${arr.map(x=>x.c).join('')}`).join('  →  ');
+  const decoded = railChars.flat().sort((a,b) => a.pos - b.pos).map(x=>x.c).join('');
+  readEl.textContent = `읽는 순서: ${readOrder}`;
+}
 
-            const resultBox = document.getElementById('gameResult');
-            resultBox.classList.add('show');
+function toggleTool(bodyId) {
+  const body = document.getElementById(bodyId);
+  const iconId = bodyId === 'caesar-body' ? 'caesar-icon' : 'rail-icon';
+  const icon = document.getElementById(iconId);
+  const isOpen = body.classList.toggle('open');
+  icon.textContent = isOpen ? '▲ 접기' : '▼ 펼치기';
+}
 
-            if (guess === currentGameText) {
-                resultBox.classList.add('correct');
-                resultBox.classList.remove('incorrect');
-                resultBox.innerHTML = `
-                    <div>✅ 정답! 축하합니다!</div>
-                    <div style="margin-top: 10px; font-size: 1em;">단어: <span style="color: #28a745; font-family: monospace; font-weight: bold;">${currentGameText}</span></div>
-                    <div style="margin-top: 8px; font-size: 0.9em;">시프트 값: ${currentGameShift}</div>
-                    <div style="margin-top: 8px; font-size: 1.2em; color: #667eea;">🎉 ${elapsedTime}초!</div>
-                `;
-                document.getElementById('playerTime').textContent = `${elapsedTime}초`;
-                document.getElementById('accuracy').textContent = '100%';
-            } else {
-                resultBox.classList.add('incorrect');
-                resultBox.classList.remove('correct');
-                resultBox.innerHTML = `
-                    <div>❌ 틀렸습니다!</div>
-                    <div style="margin-top: 10px; font-size: 1em;">정답: <span style="color: #28a745; font-family: monospace; font-weight: bold;">${currentGameText}</span></div>
-                    <div style="margin-top: 8px; font-size: 0.9em;">당신의 답: <span style="font-family: monospace;">${guess || '(비어있음)'}</span></div>
-                    <div style="margin-top: 8px; font-size: 0.9em;">시프트 값: ${currentGameShift}</div>
-                `;
-                document.getElementById('playerTime').textContent = elapsedTime + '초 (실패)';
-                document.getElementById('accuracy').textContent = '0%';
-            }
+function switchRailTab(tab) {
+  const isGrid = tab === 'grid';
+  document.getElementById('rail-tab-grid').style.display = isGrid ? 'block' : 'none';
+  document.getElementById('rail-tab-scratch').style.display = isGrid ? 'none' : 'block';
+  document.getElementById('tab-grid').classList.toggle('active', isGrid);
+  document.getElementById('tab-scratch').classList.toggle('active', !isGrid);
+}
 
-            stopGame();
-        }
+function checkAnswer() {
+  const ans = document.getElementById('g-answer').value.trim().toUpperCase();
+  const m = MISSIONS[curMission];
+  const correct = m.plain.toUpperCase();
+  const fb = document.getElementById('g-feedback');
+  fb.style.display = 'block';
+  if (ans === correct) {
+    const pts = m.level * 100 + Math.ceil(timeLeft * 2);
+    score += pts;
+    document.getElementById('g-score').textContent = score;
+    fb.className = 'feedback correct';
+    fb.textContent = `✅ 정확합니다! +${pts}점 — 정답: "${correct}"`;
+    curMission++;
+    setTimeout(() => { fb.style.display = 'none'; loadMission(); }, 1600);
+  } else {
+    fb.className = 'feedback wrong';
+    fb.textContent = '❌ 틀렸습니다. 힌트를 참고하여 다시 시도해보세요!';
+    score = Math.max(0, score - 10);
+    document.getElementById('g-score').textContent = score;
+  }
+}
 
-        function stopGame() {
-            gameActive = false;
-            clearInterval(gameTimer);
-            document.getElementById('gameStartBtn').style.display = 'inline-block';
-            document.getElementById('gameSubmitBtn').style.display = 'none';
-            document.getElementById('gameStopBtn').style.display = 'none';
-            document.getElementById('gameTimer').style.display = 'none';
-        }
-
-        // 엔터키로 제출
-        document.addEventListener('keypress', function(e) {
-            if (e.key === 'Enter' && gameActive && document.getElementById('gameGuess') === document.activeElement) {
-                submitGuess();
-            }
-        });
-    </script>
+function endGame(completed) {
+  clearInterval(timer);
+  document.getElementById('game-area').style.display = 'none';
+  document.getElementById('game-result').style.display = 'block';
+  document.getElementById('g-final-score').textContent = score + '점';
+  document.getElementById('g-missions-done').textContent = curMission + '개';
+  const trophy = document.getElementById('g-trophy');
+  const title  = document.getElementById('g-result-title');
+  const desc   = document.getElementById('g-result-desc');
+  if (completed) {
+    trophy.textContent = '🏆';
+    title.textContent = '임무 완료! 마스터 요원!';
+    desc.textContent = '모든 암호를 해독했습니다. 당신은 타고난 암호학자입니다!';
+  } else if (score >= 600) {
+    trophy.textContent = '🥇';
+    title.textContent = '우수 요원 인증!';
+    desc.textContent = `시간 내에 ${curMission}개 미션을 완료하고 높은 점수를 기록했습니다.`;
+  } else if (score >= 300) {
+    trophy.textContent = '🥈';
+    title.textContent = '훈련된 요원';
+    desc.textContent = '카이사르와 레일펜스 암호를 더 연습하면 마스터가 될 수 있습니다!';
+  } else {
+    trophy.textContent = '🔍';
+    title.textContent = '더 연습이 필요합니다';
+    desc.textContent = '위의 실습 탭에서 카이사르·레일펜스 암호를 연습하고 다시 도전해보세요!';
+  }
+}
+</script>
 </body>
 </html>
-
-
-
-							<script>
-                            	
-        // 탭 전환
-        function switchTab(tabName) {
-            const contents = document.querySelectorAll('.content');
-            const buttons = document.querySelectorAll('.tab-btn');
-
-            contents.forEach(content => content.classList.remove('active'));
-            buttons.forEach(btn => btn.classList.remove('active'));
-
-            document.getElementById(tabName).classList.add('active');
-            event.target.classList.add('active');
-        }
-
-        // 알파벳 참고 표 토글
-        function toggleAlphabet(btn) {
-            const content = btn.nextElementSibling;
-            btn.classList.toggle('expanded');
-            content.classList.toggle('expanded');
-        }
-
-        // 암호화 및 복호화 함수
-        function shiftChar(char, shift) {
-            if (/[A-Z]/.test(char)) {
-                return String.fromCharCode((char.charCodeAt(0) - 65 + shift) % 26 + 65);
-            } else if (/[a-z]/.test(char)) {
-                return String.fromCharCode((char.charCodeAt(0) - 97 + shift) % 26 + 97);
-            }
-            return char;
-        }
-
-        function caesarCipher(text, shift, decrypt = false) {
-            const actualShift = decrypt ? (26 - shift) % 26 : shift;
-            return text.split('').map(char => shiftChar(char, actualShift)).join('');
-        }
-
-        // 암호화
-        function encrypt() {
-            const plaintext = document.getElementById('plaintext').value;
-            const shift = parseInt(document.getElementById('encryptShift').value);
-
-            if (plaintext.trim() === '') {
-                alert('원문을 입력해주세요!');
-                return;
-            }
-
-            const encrypted = caesarCipher(plaintext, shift);
-            const resultBox = document.getElementById('encryptResult');
-            document.getElementById('encryptedOutput').value = encrypted;
-            resultBox.classList.add('show');
-        }
-
-        // 복호화
-        function decrypt() {
-            const ciphertext = document.getElementById('ciphertext').value;
-            const shift = parseInt(document.getElementById('decryptShift').value);
-
-            if (ciphertext.trim() === '') {
-                alert('암호문을 입력해주세요!');
-                return;
-            }
-
-            const decrypted = caesarCipher(ciphertext, shift, true);
-            const resultBox = document.getElementById('decryptResult');
-            document.getElementById('decryptedOutput').value = decrypted;
-            resultBox.classList.add('show');
-        }
-
-        // 모든 경우의 수 시도 (Brute Force)
-        function bruteForce() {
-            const text = document.getElementById('bruteforceText').value;
-
-            if (text.trim() === '') {
-                alert('암호문을 입력해주세요!');
-                return;
-            }
-
-            let results = '<table style="width:100%; border-collapse: collapse;">';
-            results += '<tr style="background:#667eea; color:white;"><th style="padding:10px; border:1px solid #ddd;">시프트</th><th style="padding:10px; border:1px solid #ddd;">결과</th></tr>';
-
-            for (let i = 1; i <= 25; i++) {
-                const decrypted = caesarCipher(text, i, true);
-                results += `<tr style="background:${i % 2 === 0 ? '#f8f9fa' : '#fff'};"><td style="padding:10px; border:1px solid #ddd; font-weight:bold;">${i}</td><td style="padding:10px; border:1px solid #ddd; font-family:monospace;">${decrypted}</td></tr>`;
-            }
-
-            results += '</table>';
-            document.getElementById('bruteforcelist').innerHTML = results;
-            document.getElementById('bruteforceResult').classList.add('show');
-        }
-
-        // Shift 값 업데이트 표시
-        function updateEncryptShiftDisplay() {
-            document.getElementById('encryptShiftDisplay').textContent = 
-                document.getElementById('encryptShift').value;
-        }
-
-        function updateDecryptShiftDisplay() {
-            document.getElementById('decryptShiftDisplay').textContent = 
-                document.getElementById('decryptShift').value;
-        }
-    
-
-							</script>
-                        </body>
-                        </html>
-                    
